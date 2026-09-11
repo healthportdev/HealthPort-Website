@@ -42,8 +42,8 @@ export function TestimonialVideo() {
     <div
       className="relative w-full overflow-hidden"
       style={{
-        aspectRatio: "4 / 5",
-        borderRadius: "24px",
+        aspectRatio: "16 / 9",
+        borderRadius: "var(--radius-media)",
         background: "rgba(0,19,22,0.04)",
       }}
     >
@@ -86,7 +86,7 @@ export function TestimonialVideo() {
             aria-label="Play hospital testimonial video"
           >
             <span
-              className="inline-flex items-center gap-3 px-4 py-2.5 group-hover:scale-[1.04] transition-transform"
+              className="inline-flex items-center gap-3 px-4 py-2.5 group-hover:-translate-y-px group-hover:scale-[1.02]"
               style={{
                 background: "rgba(0,19,22,0.75)",
                 color: "var(--color-parchment)",
@@ -98,6 +98,7 @@ export function TestimonialVideo() {
                 fontWeight: 600,
                 fontSize: "13px",
                 letterSpacing: "0.01em",
+                transition: "transform 300ms var(--ease-out-brand)",
               }}
             >
               <span

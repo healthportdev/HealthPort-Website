@@ -1,50 +1,63 @@
 /**
  * OxygenGap — the "problem" chapter, restrained.
- * Second Draft: prose left, Tea Green fact panel right. Both sides bleed —
- * a photo of an oxygen cylinder valve anchored to the LEFT of the viewport
- * clipped by the section bottom; the fact panel extends past the RIGHT edge
- * of the container so it feels tucked to the viewport wall.
  *
- * Motion: right-column fact items fade-up-and-settle with an 80 ms stagger
- * via [[StatReveal]] client leaf. Section itself fades in via SectionReveal.
+ * Transparent valve PNG bleeds in from the LEFT viewport edge with no card
+ * or background around it — that no-container floating gives the section its
+ * immersive, 3D-like anchor. Prose + a three-row dashboard (Most · Hours ·
+ * Unseen) live in the right column so they never overlap the image.
+ *
+ * The row labels are color-coded Teal · Coral · Violet — the same trio used
+ * for the shimmer words in the testimonial payoff ("It saves cost / time /
+ * life"). Typography rhyme without changing the crisis wording.
+ *
+ * Motion: row items fade-up-and-settle with an 80 ms stagger via
+ * [[StatReveal]] client leaf.
  *
  * Facts marked `FACT NEEDED` until a citable source is provided.
  */
 import Image from "next/image";
 import oxygenValve from "../../../public/images/oxygen-valve.png";
 
-type Fact = {
-  headline: string;
+type Row = {
+  label: string;
+  color: string; // one of the three testimonial shimmer colors
   body: React.ReactNode;
 };
 
-const facts: Fact[] = [
+// Original three failure modes restated as a color-coded dashboard. Labels
+// pick up the three testimonial-payoff brand colors (Teal / Coral / Violet)
+// so the typography still rhymes with the "It saves cost / time / life"
+// moment down the page, even though the label words themselves stay as the
+// original crisis nouns.
+const rows: Row[] = [
   {
-    headline: "1 in 5",
+    label: "Most",
+    color: "var(--color-teal)",
     body: (
       <>
-        Hospital departments{" "}
+        hospital departments{" "}
         <strong className="font-semibold">can&rsquo;t see</strong> how much
-        oxygen they have left until it runs out.
+        oxygen is left until it runs out.
       </>
     ),
   },
   {
-    headline: "Hours",
+    label: "Hours",
+    color: "var(--color-coral)",
     body: (
       <>
-        wait time between running low and getting a refill during{" "}
+        of wait between an empty cylinder and a refill during{" "}
         <strong className="font-semibold">peak demand.</strong>
       </>
     ),
   },
   {
-    headline: "Everyday",
+    label: "Unseen",
+    color: "var(--color-violet)",
     body: (
       <>
-        a hospital somewhere in the region{" "}
-        <strong className="font-semibold">rations care</strong> because oxygen
-        is unavailable.
+        Between service visits, cylinders and lines degrade with{" "}
+        <strong className="font-semibold">no warning.</strong>
       </>
     ),
   },
@@ -57,106 +70,151 @@ export function OxygenGap() {
       aria-label="The oxygen access gap"
       style={{ paddingBlock: "var(--spacing-section)" }}
     >
-      {/* Content — max-width, centred */}
-      <div className="container-page relative" style={{ zIndex: 1 }}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
-          {/* Left: prose. Sits at the top of the column against the
-              container edge — the tank is at the bottom of the section, so
-              they don't collide vertically. */}
-          <div>
-            <h2 className="mb-6">
-              The oxygen access{" "}
-              <span style={{ color: "var(--color-coral)" }}>gap.</span>
-            </h2>
-            <p className="lead">
-              Across Nigerian hospitals, the gap isn&rsquo;t supply &mdash;{" "}
-              <span style={{ color: "var(--color-violet)" }}>
-                it&rsquo;s delivery, maintenance, and visibility.
-              </span>
-            </p>
-          </div>
-
-          {/* Right: Tea Green fact panel. On md+ its right edge is pinned to
-              the viewport wall — negative margin scales with viewport so the
-              panel always bleeds off the container padding AND any gutter
-              between the container and the viewport edge. */}
-          <aside
-            data-stat-group
-            className="p-8 md:p-10 lg:p-12 flex flex-col gap-8"
-            style={{
-              background: "var(--color-teagreen)",
-              color: "var(--color-ink)",
-              borderTopLeftRadius: "var(--radius-card)",
-              borderBottomLeftRadius: "var(--radius-card)",
-              marginRight:
-                "calc(-1 * (max(0px, (100vw - var(--container-max)) / 2) + var(--container-pad-x)))",
-            }}
-          >
-            {facts.map((f, i) => (
-              <div
-                key={f.headline}
-                data-stat-reveal
-                className="flex flex-col gap-3"
-                style={
-                  i > 0
-                    ? {
-                        paddingTop: "1.75rem",
-                        borderTop: "1px solid rgba(0,19,22,0.12)",
-                      }
-                    : undefined
-                }
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "var(--text-h3)",
-                    lineHeight: "var(--text-h3--line-height)",
-                    letterSpacing: "var(--text-h3--letter-spacing)",
-                    fontWeight: 700,
-                    color: "var(--color-ink)",
-                  }}
-                >
-                  {f.headline}
-                </p>
-                <p
-                  style={{
-                    fontSize: "var(--text-p2)",
-                    lineHeight: 1.55,
-                    color: "var(--color-ink)",
-                    maxWidth: "38ch",
-                  }}
-                >
-                  {f.body}
-                </p>
-              </div>
-            ))}
-            {/* FACT NEEDED: verify these framing numbers with a citable source. */}
-          </aside>
-        </div>
-      </div>
-
-      {/* Bleed image — anchored to viewport LEFT, expanded to fill the
-          left ~half of the section. Sits at the bottom; text sits at the
-          top of the column so they don't visually collide. */}
+      {/* Ambient Coral wash — low-opacity radial pooled in the BOTTOM-RIGHT
+          corner, well behind the row dashboard. Reinforces the section's
+          existing tension color (eyebrow, "access gap." punchline, "Hours"
+          row) without introducing a new hue. Masked to fade toward the top
+          so the wash whispers rather than announces itself. Pairs against
+          the cool valve diagram bleeding from the bottom-LEFT — the section
+          reads as a diagonal: problem-diagram left, consequence-atmosphere
+          right. */}
       <div
         aria-hidden="true"
-        className="hidden md:block absolute bottom-0 left-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          width: "clamp(440px, 52vw, 740px)",
-          transform: "translateY(-2%)",
+          zIndex: 0,
+          background:
+            "radial-gradient(ellipse 70% 55% at 92% 108%, rgba(239, 100, 97, 0.20), transparent 65%)",
+          WebkitMaskImage:
+            "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,0.4) 78%, transparent 100%)",
+          maskImage:
+            "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,0.4) 78%, transparent 100%)",
+        }}
+      />
+
+      {/* Bleed image — transparent PNG anchored to the section's BOTTOM-LEFT
+          corner and pushed slightly past both edges so it literally bleeds
+          off-screen on the left and the bottom. No card, no bg — the raw
+          PNG floats and gives the section its immersive anchor.
+          Height follows the source aspect (800×501) so the composition is
+          preserved as it scales. */}
+      <div
+        aria-hidden="true"
+        className="hidden md:block absolute pointer-events-none"
+        style={{
+          left: "-3vw",
+          bottom: "-1vw",
+          width: "clamp(680px, 70vw, 1120px)",
+          aspectRatio: "800 / 501",
           zIndex: 0,
         }}
       >
         <Image
           src={oxygenValve}
           alt=""
-          sizes="(min-width: 1280px) 740px, (min-width: 768px) 52vw, 0px"
+          fill
+          sizes="(min-width: 768px) 62vw, 0px"
           placeholder="blur"
           priority={false}
-          style={{ width: "100%", height: "auto" }}
+          style={{ objectFit: "contain", objectPosition: "left bottom" }}
         />
       </div>
 
+      <div className="container-page relative" style={{ zIndex: 1 }}>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
+          {/* Left spacer — reserves visual room for the bleed image. */}
+          <div className="hidden md:block md:col-span-3" aria-hidden />
+
+          {/* Content column — prose stacked over the three-row dashboard.
+              The rows sit tight under the subhead (no big gap) and each row
+              is a single line: a wide-tracked colored LABEL + a plain-Ink
+              statement, keyline separated. All type capped at 14px per spec. */}
+          <div className="col-span-12 md:col-span-9 flex flex-col gap-8 md:gap-10">
+            <div>
+              <p
+                className="eyebrow mb-4"
+                style={{ color: "var(--color-violet)" }}
+              >
+                The problem
+              </p>
+              <h2
+                className="mb-6 md:mb-8"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(2.5rem, 1.2rem + 4.5vw, 4.5rem)",
+                  lineHeight: 0.98,
+                  letterSpacing: "-0.03em",
+                  fontWeight: 700,
+                  textWrap: "balance",
+                }}
+              >
+                The oxygen
+                <br />
+                <span style={{ color: "var(--color-coral)" }}>
+                  access gap.
+                </span>
+              </h2>
+              <p
+                style={{
+                  fontSize: "18px",
+                  lineHeight: 1.55,
+                  color: "var(--color-muted)",
+                  maxWidth: "44rem",
+                }}
+              >
+                Across Nigerian hospitals, the gap isn&rsquo;t supply &mdash;{" "}
+                <span style={{ color: "var(--color-violet)" }}>
+                  it&rsquo;s delivery, maintenance, and visibility.
+                </span>
+              </p>
+            </div>
+
+            {/* Three rows — same editorial treatment as the h2: big colored
+                display word acting as a mini-heading, plain-Ink body below.
+                Label picks up the testimonial trio (Teal / Coral / Violet)
+                so the typography still rhymes with the payoff further down. */}
+            <div data-stat-group style={{ maxWidth: "44rem" }}>
+              {rows.map((r, i) => (
+                <div
+                  key={r.label}
+                  data-stat-reveal
+                  className="py-6 md:py-7 flex flex-col gap-2"
+                  style={
+                    i > 0
+                      ? { borderTop: "1px solid var(--color-keyline)" }
+                      : undefined
+                  }
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem)",
+                      lineHeight: 1,
+                      letterSpacing: "-0.02em",
+                      fontWeight: 700,
+                      color: r.color,
+                      margin: 0,
+                    }}
+                  >
+                    {r.label}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      lineHeight: 1.5,
+                      color: "var(--color-fg)",
+                      margin: 0,
+                    }}
+                  >
+                    {r.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+            {/* FACT NEEDED: verify these framing numbers with a citable source. */}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

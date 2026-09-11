@@ -18,7 +18,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const VIDEO_SRC = "/videos/hero-loop.mp4";
+const VIDEO_SRC = "/videos/hero-loop.mp4?v=massey60";
 const POSTER_SRC = "/videos/hero-poster.jpg";
 
 type NetworkInformation = {
@@ -44,11 +44,25 @@ export function HeroVideo() {
       setLoadVideo(false); // poster only
       return;
     }
+    const v = videoRef.current;
+    if (!v) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced && videoRef.current) {
-      videoRef.current.pause();
+    if (reduced) {
+      v.pause();
+      return;
     }
-  }, []);
+    // Force muted imperatively — React's JSX `muted` prop can lag behind
+    // the property, and browsers gate autoplay on the DOM property being true.
+    v.muted = true;
+    v.setAttribute("muted", "");
+    const p = v.play();
+    if (p && typeof p.catch === "function") {
+      p.catch((err) => {
+        // Surface autoplay rejections instead of silently swallowing them.
+        console.warn("[HeroVideo] autoplay rejected:", err);
+      });
+    }
+  }, [loadVideo]);
 
   // Pause when scrolled out of view, resume when back in view. Uses a
   // "hasBeenVisible" flag so we don't call .pause() on mount before the
@@ -162,7 +176,8 @@ export function HeroVideo() {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
+            disableRemotePlayback
             aria-label="HealthPort in the field — muted loop"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -186,8 +201,17 @@ export function HeroVideo() {
           }}
         />
 
-        {/* Centered caption / unmute button */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* Caption / unmute button — centered while muted (call-to-action),
+            tucked into the bottom-right corner while playing with sound so it
+            doesn't obscure the frame. */}
+        <div
+          className={
+            muted
+              ? "absolute inset-0 flex items-center justify-center"
+              : "absolute bottom-4 right-4 flex"
+          }
+          style={{ transition: "all 200ms ease-out" }}
+        >
           <button
             ref={captionRef}
             type="button"
@@ -204,7 +228,7 @@ export function HeroVideo() {
               fontWeight: 600,
               fontSize: "13px",
               letterSpacing: "0.01em",
-              transformOrigin: "center center",
+              transformOrigin: muted ? "center center" : "bottom right",
               willChange: "transform",
               transition: "transform 40ms linear",
             }}

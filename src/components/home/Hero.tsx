@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { HeroVideo } from "@/components/home/HeroVideo";
-import { HeroWash } from "@/components/home/HeroWash";
+import { HeroWash } from "@/components/shared/HeroWash";
 
 export function Hero() {
   return (

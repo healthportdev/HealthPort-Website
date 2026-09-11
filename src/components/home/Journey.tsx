@@ -82,7 +82,7 @@ export function Journey() {
       (entries) => {
         entries.forEach((e) => ratios.set(e.target, e.intersectionRatio));
         let bestIdx = 0;
-        let bestRatio = -1;
+        let bestRatio = 0;
         els.forEach((el, i) => {
           const r = ratios.get(el) ?? 0;
           if (r > bestRatio) {
@@ -90,7 +90,11 @@ export function Journey() {
             bestIdx = i;
           }
         });
-        setActive(bestIdx);
+        // When nothing is intersecting (scrolled fully past the section),
+        // every ratio is 0 and bestIdx defaults to 0 — which used to flash
+        // step 01's image over the top of step 06 as the user scrolled
+        // away. Skip the update so the last active step stays pinned.
+        if (bestRatio > 0) setActive(bestIdx);
       },
       {
         rootMargin: "-35% 0px -35% 0px",
@@ -110,11 +114,14 @@ export function Journey() {
           move as a unit and never overlap. */}
       <div className="container-page mb-14 md:mb-20">
         <div className="max-w-3xl" data-parallax="-0.1">
-          <p className="eyebrow mb-6" style={{ color: "var(--color-teal)" }}>
+          <p className="eyebrow mb-6" style={{ color: "var(--color-violet)" }}>
             How it works
           </p>
           <h2 style={{ textWrap: "balance" }}>
-            From first call to continuous care.
+            From first call to{" "}
+            <span style={{ color: "var(--color-violet)" }}>
+              continuous care.
+            </span>
           </h2>
           <p className="lead mt-6">
             HealthPort owns every step so nothing depends on hospital staff

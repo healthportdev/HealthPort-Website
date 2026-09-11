@@ -29,7 +29,6 @@ const partners: Partner[] = [
 export function TrustBar() {
   return (
     <section
-      className="chapter"
       aria-label="Trusted by hospitals, governments, and partners across Nigeria"
       style={{
         paddingBlock: "clamp(2.5rem, 1.75rem + 3vw, 5rem)",
@@ -37,16 +36,21 @@ export function TrustBar() {
         borderBottom: "1px solid var(--color-keyline)",
       }}
     >
-      <div className="flex flex-col items-center gap-8">
-        <p
-          className="eyebrow text-center"
-          style={{ color: "var(--color-muted)" }}
-        >
-          Trusted by partners across Nigeria
-        </p>
+      <div className="flex flex-col gap-8">
+        {/* Eyebrow stays inside the container width so the label sits with
+            the rest of the page's typographic rhythm. */}
+        <div className="container-page">
+          <p
+            className="eyebrow text-center"
+            style={{ color: "var(--color-muted)" }}
+          >
+            Trusted by partners across Nigeria
+          </p>
+        </div>
 
-        {/* Marquee — track scrolls left continuously. Content is duplicated
-            so the loop wraps seamlessly. */}
+        {/* Marquee escapes the container and runs the full viewport width so
+            the logos sweep edge-to-edge. Track scrolls left continuously and
+            is duplicated (2×) in JSX so the loop wraps seamlessly. */}
         <div className="partner-marquee">
           <ul className="partner-marquee__track">
             {[...partners, ...partners].map((p, i) => (
