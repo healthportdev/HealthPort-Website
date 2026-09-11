@@ -4,7 +4,6 @@ import { Modules } from "@/components/oxyintel/Modules";
 import { WhatItDoes } from "@/components/oxyintel/WhatItDoes";
 import { WhatsComing } from "@/components/oxyintel/WhatsComing";
 import { MLApproach } from "@/components/oxyintel/MLApproach";
-import { OxyIntelClosingCTA } from "@/components/oxyintel/OxyIntelClosingCTA";
 
 export const metadata: Metadata = {
   title: "OxyIntel",
@@ -27,7 +26,6 @@ export default function OxyIntelPage() {
       <WhatItDoes />
       <WhatsComing />
       <MLApproach />
-      <OxyIntelClosingCTA />
     </>
   );
 }
