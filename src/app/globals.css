@@ -49,6 +49,206 @@
     font-feature-settings: "kern", "liga", "calt";
   }
 
+  /* Custom brand cursor on every clickable action — same "O2 molecule"
+     cursor used on the primary/secondary buttons. Applied to links,
+     buttons, ARIA roles that behave as buttons/menu items, form-submit
+     inputs, labels bound to inputs, and native <summary>. Falls back to
+     `pointer` for browsers that can't load the SVG. */
+  a[href],
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="menuitem"],
+  [role="tab"],
+  [role="link"],
+  label[for],
+  summary,
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"] {
+    cursor: url("/brand/cursor-o2.svg") 16 16, pointer;
+  }
+
+  /* ModelFlow — animated dot travelling along the thin dashed line
+     between nodes in the OaaS hero. Multiple dots at staggered delays
+     make the flow feel continuous, like oxygen moving through the pipe.
+     Respects reduced-motion: dots hold at mid-position, don't loop. */
+  .model-flow-dot {
+    animation: model-flow-dot 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: transform, opacity;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .model-flow-dot {
+      animation: none;
+      transform: translateX(50%);
+      opacity: 0.7;
+    }
+  }
+
+  /* IntelFlow — small fade+lift when a raw metric or insight value
+     swaps on the OxyIntel hero. Applied via React `key` so the element
+     remounts on each cycle and the animation replays. */
+  .chip-value-in {
+    animation: chip-value-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chip-value-in { animation: none; }
+  }
+
+  /* IntelFlow — OxyIntel core breathing glow. Subtle inset highlight
+     that swells and recedes on a slow cycle. */
+  .oxycore-glow {
+    animation: oxycore-glow 3.8s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .oxycore-glow { animation: none; }
+  }
+
+  /* IntelFlow — OxyIntel processing dots (three-beat pulse). */
+  .oxycore-dot {
+    animation: oxycore-dot 1.4s ease-in-out infinite;
+    opacity: 0.35;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .oxycore-dot { animation: none; opacity: 0.7; }
+  }
+
+  /* IntelFlow — brain synapse firing (opacity-only so it works inside
+     an SVG circle without transform-origin gymnastics). Applied to
+     three staggered dots inside the brain silhouette. */
+  .brain-synapse {
+    animation: brain-synapse 1.5s ease-in-out infinite;
+    opacity: 0.28;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brain-synapse { animation: none; opacity: 0.7; }
+  }
+
+  /* WhatItDoes — stroke draw-in for capability card icons. Each SVG
+     path uses `pathLength={PATH_LEN}` (normalising all geometry to a
+     shared length), and the child paths animate their dashoffset from
+     PATH_LEN → 0 on reveal. The CSS variable `--icon-path-length`
+     lets us change the shared length without touching CSS. */
+  .icon-draw-in svg path,
+  .icon-draw-in svg circle,
+  .icon-draw-in svg ellipse,
+  .icon-draw-in svg line,
+  .icon-draw-in svg polyline {
+    stroke-dasharray: var(--icon-path-length, 260);
+    stroke-dashoffset: var(--icon-path-length, 260);
+    animation: icon-stroke-draw 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .icon-draw-in svg path,
+    .icon-draw-in svg circle,
+    .icon-draw-in svg ellipse,
+    .icon-draw-in svg line,
+    .icon-draw-in svg polyline {
+      stroke-dashoffset: 0;
+      animation: none;
+    }
+  }
+
+  /* OxyFlow scene — pulsing "now" halo on the chart's transition
+     point. Grows and fades on a slow cycle so it reads as a live
+     indicator, not decoration. */
+  .flow-now-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: flow-now-pulse 2.4s ease-in-out infinite;
+    opacity: 0.5;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flow-now-pulse { animation: none; opacity: 0.5; }
+  }
+
+  /* Ways-to-build (For Partners §3) — four per-card micro-motions.
+     .ways-spin      → slow rotation for the Program-design gear
+     .ways-bob       → subtle vertical bob for the Distribution truck
+     .ways-bar       → wave-pulse height for the Funding chart bars
+     .ways-breathe   → opacity breathe for the Sustainable bolt
+     All four pause under prefers-reduced-motion. */
+  .ways-spin {
+    animation: ways-spin 12s linear infinite;
+    transform-origin: center;
+    will-change: transform;
+  }
+  .ways-bob {
+    animation: ways-bob 2.8s ease-in-out infinite;
+    will-change: transform;
+    display: inline-block;
+  }
+  .ways-bar {
+    fill: currentColor;
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: ways-bar 1.8s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  .ways-breathe {
+    animation: ways-breathe 2.2s ease-in-out infinite;
+    display: inline-block;
+    will-change: opacity, transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ways-spin,
+    .ways-bob,
+    .ways-bar,
+    .ways-breathe {
+      animation: none;
+    }
+  }
+
+  /* IntelFlow — Violet dot travelling along a curved SVG-shaped path
+     via CSS `offset-path`. Each dot instance sets its own
+     `offset-path` (as a `path(...)` value) inline, so the same class
+     drives every curve in the fan. Fades in/out at the ends of the
+     curve so the flow feels seamless. */
+  .fan-flow-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-violet);
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+    offset-anchor: center;
+    animation: fan-flow 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: offset-distance, opacity;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fan-flow-dot {
+      animation: none;
+      offset-distance: 50%;
+      opacity: 0.7;
+    }
+  }
+
+  /* Nav dropdown menu item — hover fills the whole row (not just the
+     text). Small inset (mx-1) so the fill doesn't touch the dropdown's
+     outer keyline. Both bg + color transition together. */
+  .nav-dropdown-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    margin-inline: 0.25rem;
+    border-radius: 6px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    color: var(--color-fg);
+    transition:
+      background 180ms var(--ease-out-brand),
+      color 180ms var(--ease-out-brand);
+  }
+  .nav-dropdown-item:hover,
+  .nav-dropdown-item:focus-visible {
+    background: color-mix(in srgb, var(--color-violet) 8%, transparent);
+    color: var(--color-violet);
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     color: var(--color-heading);
@@ -161,7 +361,7 @@
     max-width: var(--container-max);
     margin-inline: auto;
     padding-inline: 1.5rem;
-    padding-block: 6rem;
+    padding-block: 4rem;
   }
   @media (min-width: 768px) {
     .chapter {
@@ -295,8 +495,8 @@
      don't get clipped by the inline-block's text box. */
   .oxygen-word {
     display: inline-block;
-    line-height: 1.15;
-    padding-bottom: 0.12em;
+    line-height: 1;
+    padding-bottom: 0.18em;
     background: linear-gradient(
       90deg,
       #801078 0%,
@@ -306,6 +506,53 @@
       #c94dc0 55%,
       #801078 70%,
       #801078 100%
+    );
+    background-size: 250% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: oxygen-flow 5.5s linear infinite;
+    will-change: background-position;
+  }
+
+  /* Same shimmer pattern as .oxygen-word but in the Teal and Coral brand
+     ramps. Used on the testimonial pull-quote payoff nouns. */
+  .shimmer-teal {
+    display: inline-block;
+    line-height: 1.15;
+    padding-bottom: 0.12em;
+    background: linear-gradient(
+      90deg,
+      #155362 0%,
+      #155362 30%,
+      #2b93ab 45%,
+      #5db7de 50%,
+      #2b93ab 55%,
+      #155362 70%,
+      #155362 100%
+    );
+    background-size: 250% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: oxygen-flow 5.5s linear infinite;
+    will-change: background-position;
+  }
+  .shimmer-coral {
+    display: inline-block;
+    line-height: 1.15;
+    padding-bottom: 0.12em;
+    background: linear-gradient(
+      90deg,
+      #EF6461 0%,
+      #EF6461 30%,
+      #f79b99 45%,
+      #ffcac9 50%,
+      #f79b99 55%,
+      #EF6461 70%,
+      #EF6461 100%
     );
     background-size: 250% 100%;
     background-clip: text;
@@ -325,6 +572,276 @@
 @keyframes partner-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+@keyframes model-flow-dot {
+  /* Distance is parameterized via --flow-distance so the same keyframes
+     work across arrow widths (mobile / desktop). */
+  0%   { transform: translateX(0);                          opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(var(--flow-distance, 40px)); opacity: 0; }
+}
+
+/* IntelFlow — see .chip-value-in above. */
+@keyframes chip-value-in {
+  0%   { opacity: 0; transform: translateY(3px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* IntelFlow — see .oxycore-glow above. */
+@keyframes oxycore-glow {
+  0%, 100% { box-shadow: inset 0 0 0 rgba(255, 255, 255, 0); }
+  50%      { box-shadow: inset 0 0 26px rgba(255, 255, 255, 0.14); }
+}
+
+/* IntelFlow — see .oxycore-dot above. */
+@keyframes oxycore-dot {
+  0%, 60%, 100% { opacity: 0.35; transform: scale(1); }
+  30%           { opacity: 1;    transform: scale(1.2); }
+}
+
+/* IntelFlow — see .brain-synapse above. */
+@keyframes brain-synapse {
+  0%, 65%, 100% { opacity: 0.25; }
+  30%           { opacity: 1; }
+}
+
+/* IntelFlow — see .fan-flow-dot above. Travels along whatever
+   `offset-path` the dot's inline style provides. */
+@keyframes fan-flow {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+/* OxyFlow scene — see .flow-now-pulse above. */
+@keyframes flow-now-pulse {
+  0%, 100% { transform: scale(1);   opacity: 0.45; }
+  50%      { transform: scale(1.8); opacity: 0;    }
+}
+
+/* For Partners §3 Ways-to-build — see the .ways-* classes above. */
+@keyframes ways-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes ways-bob {
+  0%, 100% { transform: translateY(0);   }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes ways-bar {
+  0%, 100% { transform: scaleY(1);    opacity: 0.9; }
+  50%      { transform: scaleY(0.55); opacity: 0.55; }
+}
+@keyframes ways-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1);    }
+  50%      { opacity: 1;    transform: scale(1.08); }
+}
+
+/* WhatItDoes — see .icon-draw-in above. Each icon's SVG paths animate
+   their dashoffset to 0, drawing the stroke in on reveal. */
+@keyframes icon-stroke-draw {
+  from { stroke-dashoffset: var(--icon-path-length, 260); }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ProcessTeaser — scene entrance and per-scene animations. */
+@keyframes process-scene-in {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.process-scene-anim {
+  animation: process-scene-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Assess — radar pulse: ring expands from small to large and fades. */
+@keyframes assess-pulse {
+  0%   { transform: scale(0.3); opacity: 0; }
+  20%  { opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@keyframes assess-blink {
+  0%, 100% { transform: scale(1);    opacity: 0.35; }
+  50%      { transform: scale(1.5);  opacity: 1;    }
+}
+
+/* Design — halo pulse around branch endpoints. */
+@keyframes design-halo {
+  0%, 100% { transform: scale(0.9); opacity: 0.35; }
+  50%      { transform: scale(1.6); opacity: 0;    }
+}
+/* Travelling pulse along each branch. Positions are hand-tuned to the
+   SVG's branch paths (trunk drop → curved bend → straight drop). */
+@keyframes design-flow-left {
+  0%    { transform: translate(200px, 80px);  opacity: 0; }
+  10%   { opacity: 1; }
+  33%   { transform: translate(200px, 180px); }
+  66%   { transform: translate(120px, 240px); }
+  95%   { transform: translate(120px, 318px); opacity: 1; }
+  100%  { transform: translate(120px, 320px); opacity: 0; }
+}
+@keyframes design-flow-right {
+  0%    { transform: translate(200px, 80px);  opacity: 0; }
+  10%   { opacity: 1; }
+  33%   { transform: translate(200px, 180px); }
+  66%   { transform: translate(280px, 240px); }
+  95%   { transform: translate(280px, 318px); opacity: 1; }
+  100%  { transform: translate(280px, 320px); opacity: 0; }
+}
+
+/* Install — grid cells filling in sequence. */
+@keyframes install-fill {
+  0%, 60% { opacity: 0.18; transform: scale(1); }
+  65%     { opacity: 1;    transform: scale(1.6); }
+  75%     { opacity: 0.7;  transform: scale(1);   }
+  100%    { opacity: 0.18; transform: scale(1);   }
+}
+
+/* Stay — orbit around the centre. */
+@keyframes stay-orbit {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Stay (v2) — hub pulse: the coordination mark at the centre of the
+   cycle slowly breathes to signal the loop is being actively watched. */
+@keyframes stage-hub-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.9; }
+  50%      { transform: scale(1.15); opacity: 0.4; }
+}
+
+/* Stay (v2) — monitoring waveform bars pulse in place so the metric
+   tile reads as live. */
+@keyframes stage-bar-pulse {
+  0%, 100% { transform: scaleY(0.65); opacity: 0.7; }
+  50%      { transform: scaleY(1);    opacity: 1;   }
+}
+
+/* ------------------------------------------------------------------
+   Stacked-card stage visuals (ProcessTeaser). Continuous, subtle
+   motion — the visuals should always feel alive while the card is on
+   screen (there's no scroll-trigger since each card sticks for a long
+   time). Reduced-motion pauses all of these.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .stage-anim { animation: none !important; }
+}
+
+/* Assess — floor-plan rooms fade in one after another as if being
+   surveyed. Each room stays revealed through most of the cycle so all
+   six are visible together in the middle, then the whole plan fades
+   back down and re-plays. */
+@keyframes stage-room-reveal {
+  0%          { opacity: 0.18; transform: scale(0.985); }
+  10%, 82%    { opacity: 1;    transform: scale(1);     }
+  100%        { opacity: 0.18; transform: scale(0.985); }
+}
+
+/* Design — pulses travel along the plant→hospital pipe (left→right) and
+   the cylinder→hospital delivery route (right→left). Continuous loops
+   at slightly different rhythms so both flows never pulse in unison. */
+@keyframes stage-pipe-left {
+  0%    { transform: translate(94px,  175px); opacity: 0; }
+  10%   { opacity: 1; }
+  90%   { opacity: 1; }
+  100%  { transform: translate(150px, 175px); opacity: 0; }
+}
+@keyframes stage-pipe-right {
+  0%    { transform: translate(288px, 175px); opacity: 0; }
+  10%   { opacity: 1; }
+  90%   { opacity: 1; }
+  100%  { transform: translate(250px, 175px); opacity: 0; }
+}
+
+/* Install — outlets light up in sequence, then fade back to base. */
+@keyframes stage-outlet-cycle {
+  0%, 60%  { opacity: 0.35; }
+  70%      { opacity: 1;    }
+  85%      { opacity: 0.8;  }
+  100%     { opacity: 0.35; }
+}
+
+/* Install (v2) — travelling pulse that runs from the reticulation trunk
+   along the branch pipe and up to the wall outlet at each bedside. The
+   endpoints are parameterized via CSS variables (--pulse-start-x, etc.)
+   so a single keyframe drives every bed. */
+@keyframes stage-pulse-arrive {
+  0%   {
+    transform: translate(var(--pulse-start-x), var(--pulse-start-y));
+    opacity: 0;
+  }
+  8%   { opacity: 1; }
+  70%  {
+    transform: translate(var(--pulse-mid-x), var(--pulse-mid-y));
+    opacity: 1;
+  }
+  90%  {
+    transform: translate(var(--pulse-end-x), var(--pulse-end-y));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--pulse-end-x), var(--pulse-end-y));
+    opacity: 0;
+  }
+}
+/* When the pulse arrives at the outlet, the outlet briefly flares to
+   full brightness before settling back to its base fill. Triggered on a
+   small delay after the arrival pulse begins. */
+@keyframes stage-outlet-arrive {
+  0%, 60%  { fill: rgba(242,239,234,0.32); }
+  72%      { fill: var(--color-parchment); }
+  92%      { fill: rgba(242,239,234,0.65); }
+  100%     { fill: rgba(242,239,234,0.32); }
+}
+
+/* Stay — shipment dot orbits the depot / hospital / ward ring. */
+@keyframes stage-orbit {
+  0%   { transform: rotate(0deg);   }
+  100% { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------
+   ProcessTeaser panel animations — used inside the OaaS process
+   teaser's sticky right panel. Each panel's children have animations
+   that stay PAUSED by default and only RUN when the panel wrapper has
+   [data-active="true"] (set by ProcessTeaserSync when that stage is
+   nearest to the viewport centre). This way the animations replay each
+   time the reader scrolls back into a stage rather than running invisibly.
+   -------------------------------------------------------------------- */
+@keyframes pt-check-in {
+  0%   { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes pt-draw {
+  0%   { stroke-dashoffset: var(--pt-draw-length, 400); }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes pt-pulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%      { transform: scale(1.35); opacity: 0.75; }
+}
+@keyframes pt-orbit {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Default: paused, at frame 0 so nothing "sticks" mid-animation before
+   the panel becomes active. */
+.pt-anim {
+  animation-play-state: paused;
+  animation-fill-mode: both;
+}
+[data-process-panel-stage][data-active="true"] .pt-anim {
+  animation-play-state: running;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pt-anim {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
 }
 
 /* Billing invoice — each value change slides up + fades in. Used inside

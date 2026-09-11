@@ -5,42 +5,14 @@ import { FooterWatermark } from "@/components/FooterWatermark";
 export function Footer() {
   return (
     <footer>
-      {/* Top band — parchment closing CTA. Merged into the footer so it and
-          the dark footer body read as one contiguous element. */}
-      <section
-        aria-label="Book an assessment"
-        style={{ paddingBlock: "clamp(48px, 5vw, 84px)" }}
-      >
-        <div className="container-page flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10">
-          <h2
-            className="max-w-2xl"
-            style={{
-              fontSize: "var(--text-h3)",
-              lineHeight: 1.15,
-              letterSpacing: "-0.015em",
-              fontWeight: 600,
-              textWrap: "balance",
-              margin: 0,
-            }}
-          >
-            You focus on patient care.<br />
-            We make sure oxygen is always available.
-          </h2>
-          <Link href="/contact" className="btn-primary shrink-0">
-            Book an Assessment
-            <Arrow />
-          </Link>
-        </div>
-      </section>
-
-      {/* Dark footer body — dashed keyline separates it from the parchment
-          CTA band above. */}
+      {/* Single dark footer body — the promise line + CTA live at the top of
+          this same block, so the closing beat and the footer read as one
+          contiguous element (no separate parchment band above). */}
       <div
         className="relative overflow-hidden"
         style={{
           background: "var(--color-ink)",
           color: "var(--color-parchment)",
-          borderTop: "1px dashed rgba(242,239,234,0.16)",
         }}
       >
         {/* Atmospheric wash at the bottom — Coral · Violet · Sky ambient
@@ -67,11 +39,13 @@ export function Footer() {
             bottom, fades + rises from below on scroll-in. */}
         <FooterWatermark />
 
-        <div className="container-page relative" style={{ zIndex: 1, paddingTop: "clamp(56px, 6vw, 88px)", paddingBottom: "clamp(48px, 5vw, 72px)" }}>
-          {/* Top row: logo+quote hard-left | 3 tight link columns hard-right. */}
-          <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-start gap-10 md:gap-16 w-full">
-            {/* Left: logo + quote card, sits at container-left */}
-            <div className="flex flex-col gap-5 items-start" style={{ maxWidth: "22rem" }}>
+        <div className="container-page relative" style={{ zIndex: 1, paddingTop: "clamp(64px, 7vw, 104px)", paddingBottom: "clamp(48px, 5vw, 72px)" }}>
+          {/* Compact brand block on the left (logo → promise → CTA), link
+              columns hard-right. Tea-Green on Ink for the button (Violet on
+              Ink is banned by the brand guide). */}
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_auto] items-start gap-14 md:gap-24 w-full">
+            {/* Left: brand block */}
+            <div className="flex flex-col items-start gap-4" style={{ maxWidth: "28rem" }}>
               <Image
                 src="/brand/logo-horizontal-teagreen.svg"
                 alt="HealthPort"
@@ -80,21 +54,38 @@ export function Footer() {
                 className="h-11 w-auto"
                 priority={false}
               />
-              <p
+              <h2
                 style={{
-                  color: "rgba(242,239,234,0.72)",
-                  fontSize: "14px",
-                  lineHeight: 1.55,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(16px, 1.1vw, 18px)",
+                  lineHeight: 1.4,
+                  letterSpacing: "-0.005em",
+                  fontWeight: 600,
+                  textWrap: "balance",
                   margin: 0,
+                  color: "var(--color-parchment)",
                 }}
               >
-                &ldquo;You focus on patient care. We make sure oxygen is
-                always available.&rdquo;
-              </p>
+                You focus on patient care.<br />
+                We make sure oxygen is always available.
+              </h2>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2.5 hover:opacity-90 transition-opacity"
+                style={{
+                  background: "var(--color-teagreen)",
+                  color: "var(--color-ink)",
+                  padding: "0.875rem 1.5rem",
+                  borderRadius: "var(--radius-control)",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 600,
+                  fontSize: "1rem",
+                }}
+              >
+                Book an Assessment
+                <Arrow />
+              </Link>
             </div>
-
-            {/* Middle: spacer column */}
-            <div aria-hidden />
 
             {/* Right: 3 tightly-grouped link columns */}
             <div className="flex gap-10 md:gap-14 md:pt-1">

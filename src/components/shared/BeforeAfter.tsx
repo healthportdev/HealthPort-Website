@@ -24,6 +24,7 @@ export function BeforeAfter({
   right,
   leftMuted = true,
   iconVariant = "dot",
+  eyebrowColor,
 }: {
   eyebrow: string;
   headline: string;
@@ -34,11 +35,20 @@ export function BeforeAfter({
    *  swaps in an X on the muted column and a check on the highlighted column —
    *  used on Home where the semantic is clearly before → after. */
   iconVariant?: BeforeAfterIconVariant;
+  /** Optional inline color override for the top eyebrow. Falls back to the
+   *  default muted color when not provided. Used by OaaS sections to sync
+   *  the section-marker rhythm (Violet on light surfaces). */
+  eyebrowColor?: string;
 }) {
   return (
     <section className="chapter" aria-label={eyebrow}>
       <div className="chapter-inner">
-        <p className="eyebrow mb-8">{eyebrow}</p>
+        <p
+          className="eyebrow mb-8"
+          style={eyebrowColor ? { color: eyebrowColor } : undefined}
+        >
+          {eyebrow}
+        </p>
         <h2 className="max-w-4xl mb-16">{headline}</h2>
 
         <div

@@ -29,33 +29,28 @@ export function ProcessTeaserSync() {
 
     const setActive = (key: string) => {
       stages.forEach((s) => {
-        const k = s.dataset.processStage;
-        if (k === key) {
+        const isActive = s.dataset.processStage === key;
+        if (isActive) {
           s.dataset.active = "true";
-          s.style.background = "var(--color-violet)";
-          s.style.color = "var(--color-parchment)";
-          s.style.border = "1px solid transparent";
-          const eyebrow = s.querySelector<HTMLElement>(".eyebrow");
-          if (eyebrow) eyebrow.style.color = "rgba(242,239,234,0.75)";
-          const h3 = s.querySelector("h3") as HTMLElement | null;
-          if (h3) h3.style.color = "var(--color-parchment)";
-          const p = s.querySelector("p") as HTMLElement | null;
-          if (p) p.style.color = "rgba(242,239,234,0.85)";
+          s.style.opacity = "1";
         } else {
           delete s.dataset.active;
-          s.style.background = "var(--color-surface)";
-          s.style.color = "var(--color-fg)";
-          s.style.border = "1px solid var(--color-keyline)";
-          const eyebrow = s.querySelector<HTMLElement>(".eyebrow");
-          if (eyebrow) eyebrow.style.color = "var(--color-muted)";
-          const h3 = s.querySelector("h3") as HTMLElement | null;
-          if (h3) h3.style.color = "var(--color-heading)";
-          const p = s.querySelector("p") as HTMLElement | null;
-          if (p) p.style.color = "var(--color-muted)";
+          s.style.opacity = "0.42";
         }
+        // Left marker line toggles with the active state.
+        const marker = s.querySelector<HTMLElement>("[data-process-marker]");
+        if (marker) marker.style.opacity = isActive ? "1" : "0";
       });
       panelStages.forEach((p) => {
-        p.style.opacity = p.dataset.processPanelStage === key ? "1" : "0";
+        const isActive = p.dataset.processPanelStage === key;
+        p.style.opacity = isActive ? "1" : "0";
+        // Also toggle a data attribute so CSS animations inside each panel
+        // can play/pause based on whether the panel is the active one.
+        if (isActive) {
+          p.dataset.active = "true";
+        } else {
+          delete p.dataset.active;
+        }
       });
     };
 

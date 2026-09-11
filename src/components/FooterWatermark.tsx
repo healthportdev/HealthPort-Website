@@ -44,7 +44,7 @@ export function FooterWatermark() {
       <span
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "clamp(140px, 22vw, 360px)",
+          fontSize: "max(140px, 22vw)",
           lineHeight: 0.85,
           fontWeight: 700,
           letterSpacing: "-0.04em",

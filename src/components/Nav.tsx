@@ -223,10 +223,18 @@ function NavDropdown({
       </button>
       {open && (
         <div
-          className="absolute top-full left-0 mt-2 min-w-[240px] py-2 bg-[var(--color-parchment)]"
+          className="absolute top-full left-0 mt-1 py-1.5"
           style={{
-            border: "1px solid var(--color-keyline)",
-            borderRadius: "var(--radius-card)",
+            background: "#FFFFFF",
+            borderRadius: "10px",
+            minWidth: "max-content",
+            // Deliberate deviation from CLAUDE.md's no-shadow rule — the
+            // dropdown needed a visual boundary against the white page and
+            // the hairline keyline read too flat. Layered soft-drop shadow
+            // (larger blur + tighter inner shadow) so the menu feels lifted
+            // without a bright halo.
+            boxShadow:
+              "0 12px 32px -8px rgba(0,19,22,0.14), 0 4px 12px -6px rgba(0,19,22,0.08)",
           }}
           role="menu"
         >
@@ -235,14 +243,7 @@ function NavDropdown({
               key={item.href}
               href={item.href}
               role="menuitem"
-              className="block px-4 py-2.5 text-[15px] text-[var(--color-fg)] transition-colors"
-              style={{ fontFamily: "var(--font-body)" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "var(--color-violet)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "var(--color-fg)";
-              }}
+              className="nav-dropdown-item"
             >
               {item.label}
             </Link>

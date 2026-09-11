@@ -25,16 +25,25 @@ export function Journey({
   headline,
   steps,
   outcome,
+  eyebrowColor,
 }: {
   eyebrow: string;
   headline: string;
   steps: JourneyStep[];
   outcome: JourneyOutcome;
+  /** Optional inline color override for the top eyebrow. Falls back to the
+   *  default muted color when not provided. */
+  eyebrowColor?: string;
 }) {
   return (
     <section className="chapter" aria-label={eyebrow} data-journey-root>
       <div className="chapter-inner">
-        <p className="eyebrow mb-8">{eyebrow}</p>
+        <p
+          className="eyebrow mb-8"
+          style={eyebrowColor ? { color: eyebrowColor } : undefined}
+        >
+          {eyebrow}
+        </p>
         <h2 className="max-w-3xl mb-16 md:mb-24">{headline}</h2>
 
         <ol className="flex flex-col gap-14 md:gap-20 list-none">
