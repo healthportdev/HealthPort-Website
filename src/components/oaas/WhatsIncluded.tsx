@@ -1,116 +1,197 @@
 /**
- * OaaS §4 — What's included. Dense reference list rendered as a keyline
- * table, not a card grid. Oxygen purity standard and clinician training are
- * called out per client feedback as trust signals — marked with
- * FACT NEEDED until client confirms specific values.
+ * OaaS §3 — What's included.
+ *
+ * Full-bleed 5-panel horizontal strip that runs edge-to-edge on the
+ * viewport with no gaps between panels. Each panel is a portrait 3:4
+ * photo with a frameless caption (Tea-Green title + Parchment subtitle)
+ * overlaid on a heavy diagonal scrim. Panels stack to 1 column on
+ * mobile so the images stay large enough to read.
+ *
+ * Merged from the original 7 items to 5 so each panel is wide enough
+ * (~288px on a 1440px viewport) for a display-scale title.
  */
-type IncludedItem = {
+import Image, { type StaticImageData } from "next/image";
+
+import piping from "../../../public/photos/regulator-install.jpg";
+import monitoring from "../../../public/photos/pulse-oximeter-monitor.jpg";
+import training from "../../../public/photos/nurse-monitor-incubator.jpg";
+import maintenance from "../../../public/photos/technicians-servicing.jpg";
+import partnership from "../../../public/photos/team-portrait-plant.jpg";
+
+type Panel = {
+  key: string;
   title: string;
-  body: string;
-  factNeeded?: boolean;
+  caption: string;
+  image: StaticImageData;
 };
 
-const items: IncludedItem[] = [
+// Content merged from the original 7 items:
+//   Deployment + Piping     → Panel 1
+//   Real-time monitoring     → Panel 2
+//   Clinician training       → Panel 3
+//   Maintenance + Delivery   → Panel 4
+//   Ongoing partnership      → Panel 5
+// Captions kept intentionally short (≤ 10 words) — each panel is narrow,
+// so long paragraphs would fight the image and the reader can't scan a
+// row of long descriptions.
+const panels: Panel[] = [
   {
-    title: "Medical oxygen cylinders",
-    body: "Supplied, owned, and maintained by HealthPort across your facility.",
+    key: "deploy",
+    title: "Deployed and piped",
+    caption: "Cylinders installed and piped to every bedside outlet.",
+    image: piping,
   },
   {
-    title: "Cylinder deployment & management",
-    body: "Delivered, installed, and tracked through their operational lifecycle.",
+    key: "monitoring",
+    title: "Real-time monitoring",
+    caption: "Live cylinder levels, usage, and refills via OxyIntel.",
+    image: monitoring,
   },
   {
-    title: "Cylinder replenishment",
-    body: "Scheduled replenishment planned against actual usage, not guesswork.",
-  },
-  {
-    title: "Reticulation (copper piping to bedside)",
-    body: "Piped-gas installation with flexible payment terms.",
-  },
-  {
-    title: "Pulse oximeters",
-    body: "One-time support where required, with training on accuracy.",
-  },
-  {
-    title: "Oxygen pressure gauges",
-    body: "One-time support where required, calibrated at deployment.",
-  },
-  {
-    title: "Installation & deployment support",
-    body: "HealthPort engineers integrate the system into your existing operations.",
-  },
-  {
-    title: "Ongoing monitoring & optimisation",
-    body: "Continuous performance monitoring; optimisation improves as data accumulates.",
-  },
-  {
-    title: "Oxygen purity standard",
-    body: "The medical-grade purity level HealthPort guarantees.",
-    factNeeded: true,
-  },
-  {
+    key: "training",
     title: "Clinician training",
-    body: "Safe handling, monitoring, and device usage &mdash; including pulse oximeter accuracy.",
-    factNeeded: true,
+    caption: "Your team trained on safe handling and administration.",
+    image: training,
+  },
+  {
+    key: "ops",
+    title: "Maintenance and delivery",
+    caption: "Scheduled servicing and refills, end to end.",
+    image: maintenance,
+  },
+  {
+    key: "partnership",
+    title: "Ongoing partnership",
+    caption: "Your HealthPort team working alongside clinical staff.",
+    image: partnership,
   },
 ];
 
 export function WhatsIncluded() {
   return (
-    <section className="chapter" aria-label="What's included">
-      <div className="chapter-inner">
-        <p className="eyebrow mb-8">What&rsquo;s included</p>
-        <h2 className="max-w-4xl mb-16">
-          Everything a hospital needs to stop managing oxygen.
-        </h2>
-
-        <ul
-          className="list-none"
-          style={{ borderTop: "1px solid var(--color-keyline)" }}
+    <section
+      className="w-full"
+      aria-label="What's included in Oxygen as a Service"
+      style={{ paddingBlock: "var(--spacing-section)" }}
+    >
+      {/* Header — contained. */}
+      <div className="container-page">
+        <div
+          className="flex flex-col items-center text-center max-w-3xl mx-auto mb-12 md:mb-16"
+          data-parallax="-0.1"
         >
-          {items.map((item) => (
-            <li
-              key={item.title}
-              className="grid grid-cols-1 md:grid-cols-[minmax(0,18rem)_1fr] gap-3 md:gap-10 py-6 md:py-7"
-              style={{ borderBottom: "1px solid var(--color-keyline)" }}
-            >
-              <div className="flex items-baseline gap-3">
-                <h3
-                  style={{
-                    fontSize: "var(--text-h5)",
-                    lineHeight: 1.3,
-                    fontWeight: 600,
-                  }}
-                >
-                  {item.title}
-                </h3>
-                {item.factNeeded && (
-                  <span
-                    className="eyebrow"
-                    style={{
-                      color: "var(--color-muted)",
-                      fontSize: "10px",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    Pending
-                  </span>
-                )}
-              </div>
-              <p
-                style={{
-                  color: item.factNeeded
-                    ? "var(--color-muted)"
-                    : "var(--color-fg)",
-                  fontSize: "var(--text-p2)",
-                  lineHeight: 1.55,
-                }}
-                dangerouslySetInnerHTML={{ __html: item.body }}
-              />
-            </li>
+          <p
+            className="eyebrow mb-4"
+            style={{ color: "var(--color-violet)" }}
+          >
+            What&rsquo;s included
+          </p>
+          <h2 className="mb-4" style={{ textWrap: "balance" }}>
+            Everything needed to{" "}
+            <span style={{ color: "var(--color-violet)" }}>
+              deliver oxygen safely and effectively.
+            </span>
+          </h2>
+          <p
+            style={{
+              fontSize: "14px",
+              lineHeight: 1.55,
+              color: "var(--color-muted)",
+            }}
+          >
+            Everything. End to end.
+          </p>
+        </div>
+      </div>
+
+      {/* Full-bleed panel strip — escapes the container-page and runs
+          edge-to-edge across the viewport with zero gaps between panels. */}
+      <div
+        className="w-full grid"
+        style={{
+          gridTemplateColumns: "1fr",
+        }}
+      >
+        <div
+          className="grid grid-cols-1 md:grid-cols-5 gap-0"
+        >
+          {panels.map((p) => (
+            <PanelCard key={p.key} panel={p} />
           ))}
-        </ul>
+        </div>
       </div>
     </section>
+  );
+}
+
+function PanelCard({ panel }: { panel: Panel }) {
+  return (
+    <article
+      className="relative w-full overflow-hidden"
+      style={{
+        aspectRatio: "3 / 4",
+        background: "var(--color-ink)",
+      }}
+    >
+      <Image
+        src={panel.image}
+        alt={panel.title}
+        fill
+        sizes="(min-width: 768px) 20vw, 100vw"
+        placeholder="blur"
+        style={{ objectFit: "cover" }}
+      />
+      {/* Netflix-style overlay — strong vertical gradient with a heavy
+          dark band at the bottom that fades cleanly to transparent by
+          about 60% up. Reads as a floor of ink under the caption while
+          leaving the upper 40% of the image completely visible. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,19,22,0.95) 0%, rgba(0,19,22,0.85) 18%, rgba(0,19,22,0.6) 38%, rgba(0,19,22,0.2) 60%, rgba(0,19,22,0) 78%)",
+        }}
+      />
+      {/* Caption — bottom, frameless, sitting on the Netflix scrim.
+          Title bumped up and subtitle bumped for readability on the
+          narrower panels. */}
+      <div
+        className="absolute z-10"
+        style={{
+          left: "clamp(1.1rem, 2vw, 1.75rem)",
+          right: "clamp(1.1rem, 2vw, 1.75rem)",
+          bottom: "clamp(1.4rem, 2.5vw, 2rem)",
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(22px, 2.4vw, 32px)",
+            fontWeight: 700,
+            lineHeight: 1.05,
+            letterSpacing: "-0.02em",
+            color: "var(--color-teagreen)",
+            margin: 0,
+            marginBottom: "0.65rem",
+            textWrap: "balance",
+          }}
+        >
+          {panel.title}
+        </h3>
+        <p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "clamp(14px, 1vw, 16px)",
+            lineHeight: 1.5,
+            color: "rgba(242, 239, 234, 0.95)",
+            margin: 0,
+            textWrap: "balance",
+          }}
+        >
+          {panel.caption}
+        </p>
+      </div>
+    </article>
   );
 }
