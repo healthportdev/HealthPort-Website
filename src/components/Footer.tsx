@@ -134,8 +134,8 @@ export function Footer() {
                 }}
               >
                 AirUp
-              </Link>{" "}
-              &mdash; here for every breath.
+              </Link>
+              , here for every breath.
             </p>
           </div>
         </div>

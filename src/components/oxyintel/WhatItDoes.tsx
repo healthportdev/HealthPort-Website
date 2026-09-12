@@ -419,7 +419,7 @@ function ChatScene({ accent }: { accent: string }) {
             margin: 0,
           }}
         >
-          SpO&#8322; 89 &mdash; advice?
+          SpO&#8322; 89. Advice?
         </p>
       </div>
 

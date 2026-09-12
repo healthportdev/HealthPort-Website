@@ -178,7 +178,7 @@ export function HeroVideo() {
             playsInline
             preload="auto"
             disableRemotePlayback
-            aria-label="HealthPort in the field — muted loop"
+            aria-label="HealthPort in the field, muted loop"
             className="absolute inset-0 w-full h-full object-cover"
           />
         )}

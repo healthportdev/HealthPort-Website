@@ -27,13 +27,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://healthportafrica.com"),
   title: {
-    default: "HealthPort — Never worry about oxygen again",
+    default: "HealthPort: Never worry about oxygen again",
     template: "%s · HealthPort",
   },
   description:
     "HealthPort is a healthcare infrastructure company delivering Oxygen as a Service to hospitals across Africa. You focus on patient care. We make sure oxygen is always available.",
   openGraph: {
-    title: "HealthPort — Never worry about oxygen again",
+    title: "HealthPort: Never worry about oxygen again",
     description:
       "Healthcare infrastructure delivering Oxygen as a Service to hospitals across Africa.",
     type: "website",

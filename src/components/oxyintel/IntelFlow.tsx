@@ -89,7 +89,7 @@ export function IntelFlow() {
         className="flex items-stretch w-full"
         style={{ gap: "clamp(4px, 0.6vw, 10px)" }}
         role="img"
-        aria-label="OxyIntel continuously processes raw operational data — cylinders, flow, SpO₂ — into actionable insights: refill, demand, triage."
+        aria-label="OxyIntel continuously processes raw operational data (cylinders, flow, SpO₂) into actionable insights: refill, demand, triage."
       >
         {/* LEFT — raw data streams (Ink text on Parchment chips).
             flex-1 so the column grows to fill the container width. */}

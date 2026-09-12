@@ -162,9 +162,9 @@ export function OxygenGap() {
                   maxWidth: "44rem",
                 }}
               >
-                Across Nigerian hospitals, the gap isn&rsquo;t supply &mdash;{" "}
+                Across Nigerian hospitals, the gap isn&rsquo;t supply.{" "}
                 <span style={{ color: "var(--color-violet)" }}>
-                  it&rsquo;s delivery, maintenance, and visibility.
+                  It&rsquo;s delivery, maintenance, and visibility.
                 </span>
               </p>
             </div>

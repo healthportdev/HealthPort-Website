@@ -14,9 +14,9 @@ export function ContactHero() {
           Tell us about your facility.
         </h1>
         <p className="lead">
-          Whether you&rsquo;re a hospital, a partner, or a funder &mdash;
-          write us a few lines and we&rsquo;ll route it to the right person
-          on the team.
+          Whether you&rsquo;re a hospital, a partner, or a funder, write
+          us a few lines and we&rsquo;ll route it to the right person on
+          the team.
         </p>
       </div>
     </section>

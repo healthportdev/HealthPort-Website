@@ -185,7 +185,7 @@ export function WhatsComing() {
   return (
     <section
       className="w-full"
-      aria-label="What's coming — the roadmap"
+      aria-label="What's coming, the roadmap"
       style={{ paddingBlock: "var(--spacing-section)" }}
     >
       <div className="container-page">

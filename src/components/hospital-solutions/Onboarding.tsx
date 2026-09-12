@@ -76,7 +76,7 @@ export function Onboarding() {
     <section
       ref={rootRef}
       className="w-full relative overflow-hidden"
-      aria-label="Onboarding — from first call to first delivery"
+      aria-label="Onboarding, from first call to first delivery"
       style={{
         background: "var(--color-ink)",
         color: "var(--color-parchment)",

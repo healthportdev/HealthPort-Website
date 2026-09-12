@@ -57,7 +57,7 @@ const chapters: ChapterData[] = [
         <span style={{ color: accent }}>accounted for.</span>
       </>
     ),
-    body: "Real-time tracking of oxygen cylinders through their lifecycle — filled, in use, empty. Inventory accountability, reduced losses, streamlined distribution.",
+    body: "Real-time tracking of oxygen cylinders through their lifecycle: filled, in use, empty. Inventory accountability, reduced losses, streamlined distribution.",
     scene: (accent) => <OxyTrackScene accent={accent} />,
     theme: {
       bg: "var(--color-teagreen)",

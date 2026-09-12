@@ -13,7 +13,7 @@ import { WhatWeDoCarousel } from "@/components/home/WhatWeDoCarousel";
 const slides = [
   {
     src: "/photos/incubator-with-cylinders.jpg",
-    alt: "A newborn in a NICU incubator beside HealthPort-branded oxygen cylinders — infrastructure and care in one frame.",
+    alt: "A newborn in a NICU incubator beside HealthPort-branded oxygen cylinders, infrastructure and care in one frame.",
     tag: "At the bedside",
     caption: "Bedside care, uninterrupted.",
     subtitle:
@@ -25,7 +25,7 @@ const slides = [
     tag: "At your facility",
     caption: "Oxygen generated on-site.",
     subtitle:
-      "The Nexair plant is installed, commissioned, and maintained by us — you get the supply, not the machinery to manage.",
+      "The Nexair plant is installed, commissioned, and maintained by us, so you get the supply, not the machinery to manage.",
   },
   {
     src: "/photos/technicians-servicing.jpg",
@@ -33,7 +33,7 @@ const slides = [
     tag: "Our team",
     caption: "Everything is serviced by us.",
     subtitle:
-      "Scheduled maintenance, on-call response, and technician training — end to end, no third parties.",
+      "Scheduled maintenance, on-call response, and technician training. End to end, no third parties.",
   },
   {
     src: "/photos/nurse-monitor-incubator.jpg",

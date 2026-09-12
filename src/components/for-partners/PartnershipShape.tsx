@@ -28,7 +28,7 @@ const ways: Way[] = [
   {
     key: "program",
     title: "Program design",
-    body: "Co-designing large-scale oxygen programmes for regions, states, and health systems — grounded in deployment data, not decks.",
+    body: "Co-designing large-scale oxygen programmes for regions, states, and health systems, grounded in deployment data, not decks.",
     icon: GearScene,
   },
   {

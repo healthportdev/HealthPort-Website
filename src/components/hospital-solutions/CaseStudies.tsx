@@ -322,7 +322,7 @@ function StoryCard({
             marginBottom: "clamp(1.25rem, 1.8vw, 1.5rem)",
           }}
         >
-          &mdash; {story.attribution}
+          {story.attribution}
         </p>
 
         {/* Divider */}

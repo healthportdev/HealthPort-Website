@@ -8,7 +8,7 @@ import { MLApproach } from "@/components/oxyintel/MLApproach";
 export const metadata: Metadata = {
   title: "OxyIntel",
   description:
-    "OxyIntel is HealthPort's intelligence platform for medical oxygen — real-time cylinder tracking (OxyTrack), demand forecasting (OxyFlow), and AI clinical support (RespiraAI).",
+    "OxyIntel is HealthPort's intelligence platform for medical oxygen: real-time cylinder tracking (OxyTrack), demand forecasting (OxyFlow), and AI clinical support (RespiraAI).",
   openGraph: {
     title: "OxyIntel · HealthPort",
     description:

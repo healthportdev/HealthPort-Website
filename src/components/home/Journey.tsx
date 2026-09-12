@@ -36,7 +36,7 @@ const steps: Step[] = [
     n: "02",
     phase: "Onboarding",
     title: "Solution design",
-    body: "A custom plan — cylinders, reticulation, monitoring hardware, and logistics — sized to your facility.",
+    body: "A custom plan with cylinders, reticulation, monitoring hardware, and logistics sized to your facility.",
     visual: "/photos/regulator-install.jpg",
   },
   {

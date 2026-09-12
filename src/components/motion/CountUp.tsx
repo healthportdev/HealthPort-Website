@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
  * prefers-reduced-motion (renders final value immediately).
  *
  * Accepts a numeric `value` (with optional `prefix`, `suffix`, `decimals`).
- * When `value === null` the component renders `placeholder` (default "—") and
+ * When `value === null` the component renders `placeholder` (default "-") and
  * skips animation entirely — used while real client figures are pending.
  */
 export function CountUp({
@@ -17,7 +17,7 @@ export function CountUp({
   suffix = "",
   decimals = 0,
   duration = 1400,
-  placeholder = "—",
+  placeholder = "-",
   className,
   style,
   ariaLabel,

@@ -33,7 +33,7 @@ const healthPortTakes = {
   eyebrow: "Our side",
   heading: "HealthPort takes on",
   body:
-    "The full operational stack — from supply and safety through compliance and reporting.",
+    "The full operational stack, from supply and safety through compliance and reporting.",
   items: [
     "Ownership and maintenance of equipment",
     "Procurement, logistics, replenishment",

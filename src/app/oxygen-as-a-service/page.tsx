@@ -10,7 +10,7 @@ import { Eligibility } from "@/components/oaas/Eligibility";
 export const metadata: Metadata = {
   title: "Oxygen as a Service",
   description:
-    "HealthPort delivers Oxygen as a Service — a managed model that takes cylinders, reticulation, monitoring, and continuous optimisation off the hospital's plate. Pay only for what you use.",
+    "HealthPort delivers Oxygen as a Service, a managed model that takes cylinders, reticulation, monitoring, and continuous optimisation off the hospital's plate. Pay only for what you use.",
   openGraph: {
     title: "Oxygen as a Service · HealthPort",
     description:

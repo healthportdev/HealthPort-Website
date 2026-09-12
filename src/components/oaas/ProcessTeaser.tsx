@@ -442,7 +442,7 @@ function DesignVisual() {
         preserveAspectRatio="xMidYMid meet"
         className="w-full h-full"
         role="img"
-        aria-label="Two possible fits — on-site plant or managed cylinders"
+        aria-label="Two possible fits: on-site plant or managed cylinders"
       >
         {/* --- CENTRAL HOSPITAL SILHOUETTE ------------------------- */}
         {/* Base building */}

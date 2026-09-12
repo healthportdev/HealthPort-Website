@@ -63,7 +63,7 @@ export function Nav() {
           scrolled ? "py-3" : "py-5"
         }`}
       >
-        <Link href="/" aria-label="HealthPort — home" className="flex items-center">
+        <Link href="/" aria-label="HealthPort home" className="flex items-center">
           <Image
             src="/brand/logo-horizontal-primary.svg"
             alt="HealthPort"
