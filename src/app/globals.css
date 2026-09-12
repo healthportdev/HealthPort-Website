@@ -161,6 +161,49 @@
     .flow-now-pulse { animation: none; opacity: 0.5; }
   }
 
+  /* Leadership ticker — continuous horizontal marquee of team
+     polaroids. Same grammar the home TrustBar uses for partner
+     logos: track is `width: max-content`, slides via translateX
+     from 0 → -50% (doubled item list in JSX makes the loop
+     seamless), pauses on hover so the reader can inspect a card.
+     overflow: hidden — this is a pure infinite loop, no manual
+     scroll (manual scroll hits the end of the doubled list and
+     breaks the loop illusion). */
+  .team-ticker {
+    width: 100%;
+    overflow: hidden;
+  }
+  .team-ticker__track {
+    display: flex;
+    align-items: center;
+    gap: clamp(2rem, 3vw, 3.5rem);
+    padding-inline: clamp(2rem, 3vw, 4rem);
+    padding-block: 3rem;
+    width: max-content;
+    animation: team-ticker 60s linear infinite;
+    list-style: none;
+    margin: 0;
+  }
+  .team-ticker:hover .team-ticker__track {
+    animation-play-state: paused;
+  }
+  .team-ticker__item {
+    flex-shrink: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .team-ticker__track { animation: none; }
+  }
+
+  /* AirUp mascot — soft, slow float on Y so the character reads as
+     alive without feeling busy. 6s cycle. */
+  .airup-float {
+    animation: airup-float 6s ease-in-out infinite;
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .airup-float { animation: none; }
+  }
+
   /* Ways-to-build (For Partners §3) — four per-card micro-motions.
      .ways-spin      → slow rotation for the Program-design gear
      .ways-bob       → subtle vertical bob for the Distribution truck
@@ -619,6 +662,19 @@
 @keyframes flow-now-pulse {
   0%, 100% { transform: scale(1);   opacity: 0.45; }
   50%      { transform: scale(1.8); opacity: 0;    }
+}
+
+/* AirUp mascot — see .airup-float above. */
+@keyframes airup-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* Leadership ticker — continuous horizontal marquee for the team
+   polaroids. See .team-ticker__track above. */
+@keyframes team-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* For Partners §3 Ways-to-build — see the .ways-* classes above. */
