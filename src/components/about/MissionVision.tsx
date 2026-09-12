@@ -38,10 +38,7 @@ export function MissionVision() {
             className="mb-6 max-w-5xl"
             style={{ lineHeight: 1.04, textWrap: "balance" }}
           >
-            <span style={{ color: "var(--color-violet)" }}>
-              Oxygen supplier
-            </span>{" "}
-            to healthcare{" "}
+            Oxygen supplier to healthcare{" "}
             <span style={{ color: "var(--color-violet)" }}>
               infrastructure
             </span>

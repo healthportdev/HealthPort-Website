@@ -18,12 +18,15 @@ type VisionStat = {
   label: string;
   target: number;
   suffix: string;
+  // If true, format the value with thousands separators. Off for
+  // year values so 2035 renders as "2035", not "2,035".
+  thousands: boolean;
 };
 
 const stats: VisionStat[] = [
-  { label: "hospitals reached", target: 10000, suffix: "+" },
-  { label: "lives saved each year", target: 100000, suffix: "+" },
-  { label: "by", target: 2035, suffix: "" },
+  { label: "hospitals reached", target: 10000, suffix: "+", thousands: true },
+  { label: "lives saved each year", target: 100000, suffix: "+", thousands: true },
+  { label: "by year", target: 2035, suffix: "", thousands: false },
 ];
 
 export function WhyWeExistReprise() {
@@ -60,17 +63,19 @@ export function WhyWeExistReprise() {
       style={{ paddingBlock: "var(--spacing-section)" }}
     >
       <div className="container-page">
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] gap-12 md:gap-20 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] gap-12 md:gap-20 items-center">
           {/* LEFT — mission copy */}
           <div data-parallax="-0.06">
             <p
-              className="eyebrow mb-5"
-              style={{ color: "var(--color-violet)" }}
+              className="eyebrow"
+              style={{
+                color: "var(--color-violet)",
+                marginBottom: "clamp(1.75rem, 2vw, 2.25rem)",
+              }}
             >
               Why we exist
             </p>
             <h2
-              className="mb-6"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(2rem, 1.5rem + 1.8vw, 3rem)",
@@ -80,14 +85,13 @@ export function WhyWeExistReprise() {
                 color: "var(--color-heading)",
                 textWrap: "balance",
                 margin: 0,
+                marginBottom: "clamp(2rem, 2.5vw, 2.5rem)",
               }}
             >
               Every day, patients lose access to{" "}
-              <span style={{ color: "var(--color-violet)" }}>
-                life-saving oxygen
-              </span>{" "}
-              &mdash; not because it doesn&rsquo;t exist, but because
-              healthcare systems struggle to deliver it reliably.
+              <span className="oxygen-word">life-saving oxygen</span>,
+              not because it doesn&rsquo;t exist, but because healthcare
+              systems struggle to deliver it reliably.
             </h2>
             <p
               style={{
@@ -99,7 +103,7 @@ export function WhyWeExistReprise() {
               }}
             >
               HealthPort exists to remove that burden. Hospitals should
-              never have to worry about oxygen availability — so
+              never have to worry about oxygen availability, so
               healthcare professionals can focus entirely on caring for
               patients.
             </p>
@@ -207,7 +211,9 @@ function StatRow({
           fontVariantNumeric: "tabular-nums",
         }}
       >
-        {Math.round(current).toLocaleString()}
+        {stat.thousands
+          ? Math.round(current).toLocaleString()
+          : Math.round(current)}
         {stat.suffix}
       </span>
     </li>
