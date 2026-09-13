@@ -24,23 +24,112 @@ const inter = Inter({
   display: "swap",
 });
 
+const SITE_URL = "https://healthportafrica.com";
+const SITE_NAME = "HealthPort";
+const SITE_TAGLINE = "HealthPort: Never worry about oxygen again";
+const SITE_DESCRIPTION =
+  "HealthPort is a healthcare infrastructure company delivering Oxygen as a Service to hospitals across Africa. You focus on patient care. We make sure oxygen is always available.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://healthportafrica.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "HealthPort: Never worry about oxygen again",
+    default: SITE_TAGLINE,
     template: "%s · HealthPort",
   },
-  description:
-    "HealthPort is a healthcare infrastructure company delivering Oxygen as a Service to hospitals across Africa. You focus on patient care. We make sure oxygen is always available.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: "HealthPort", url: SITE_URL }],
+  keywords: [
+    "medical oxygen",
+    "oxygen supply Nigeria",
+    "oxygen as a service",
+    "hospital oxygen infrastructure",
+    "medical gas Africa",
+    "healthcare infrastructure",
+    "OxyIntel",
+    "reliable oxygen",
+  ],
   openGraph: {
-    title: "HealthPort: Never worry about oxygen again",
+    title: SITE_TAGLINE,
     description:
       "Healthcare infrastructure delivering Oxygen as a Service to hospitals across Africa.",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     type: "website",
     locale: "en_NG",
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TAGLINE,
+    description:
+      "Healthcare infrastructure delivering Oxygen as a Service to hospitals across Africa.",
+    creator: "@healthport",
+    site: "@healthport",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   alternates: { canonical: "/" },
+  category: "Healthcare",
+};
+
+/**
+ * JSON-LD structured data. Two schemas ship at the root:
+ *
+ *   1. Organization — the brand, its logo, and social profile links
+ *      (populate `sameAs` when the client shares social URLs).
+ *   2. WebSite — the site itself, with SearchAction so Google can
+ *      offer a sitelinks search box in results.
+ *
+ * The LocalBusiness schema lives on /contact where the office
+ * address makes more sense contextually.
+ */
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/brand/logo-horizontal-primary.svg`,
+  description: SITE_DESCRIPTION,
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: "hello@healthportafrica.com",
+      telephone: "+234-806-412-4356",
+      areaServed: "NG",
+      availableLanguage: ["English"],
+    },
+  ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "The Phillipi Centre, Plot A, Awolowo Way",
+    addressLocality: "Ikeja",
+    addressRegion: "Lagos",
+    addressCountry: "NG",
+  },
+  // Populate with real social URLs when supplied.
+  sameAs: [] as string[],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: SITE_URL,
+  inLanguage: "en-NG",
+  publisher: {
+    "@type": "Organization",
+    name: SITE_NAME,
+  },
 };
 
 export default function RootLayout({
@@ -48,6 +137,22 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${manrope.variable} ${inter.variable}`}>
+      <head>
+        {/* JSON-LD — inlined so Google reads it on first render. */}
+        <script
+          type="application/ld+json"
+          // Safe: content is a compile-time constant, not user data.
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
+      </head>
       <body>
         <a
           href="#main"

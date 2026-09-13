@@ -6,6 +6,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        // API routes are for the contact form, not for crawling.
+        // Blocking them keeps them out of search indices and stops
+        // bots from probing the endpoint.
+        disallow: ["/api/"],
       },
     ],
     sitemap: "https://healthportafrica.com/sitemap.xml",

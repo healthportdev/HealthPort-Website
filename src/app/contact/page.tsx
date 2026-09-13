@@ -16,11 +16,58 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
+// LocalBusiness JSON-LD — Google reads this for map / Knowledge Panel
+// results. Lives on /contact because the office address is the
+// context that makes the schema meaningful.
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "HealthPort",
+  url: "https://healthportafrica.com",
+  image: "https://healthportafrica.com/brand/logo-horizontal-primary.svg",
+  description:
+    "Healthcare infrastructure company delivering Oxygen as a Service to hospitals across Africa.",
+  telephone: "+234-806-412-4356",
+  email: "hello@healthportafrica.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "The Phillipi Centre, Plot A, Awolowo Way",
+    addressLocality: "Ikeja",
+    addressRegion: "Lagos",
+    addressCountry: "NG",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+      ],
+      opens: "09:00",
+      closes: "17:00",
+    },
+  ],
+  areaServed: {
+    "@type": "Country",
+    name: "Nigeria",
+  },
+};
+
 export default function ContactPage() {
   return (
-    <section
-      className="relative w-full overflow-hidden isolate"
-      aria-label="Contact"
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessJsonLd),
+        }}
+      />
+      <section
+        className="relative w-full overflow-hidden isolate"
+        aria-label="Contact"
       style={{
         paddingTop: "clamp(5rem, 4rem + 4vw, 8rem)",
         paddingBottom: "clamp(4rem, 3rem + 4vw, 7rem)",
@@ -78,5 +125,6 @@ export default function ContactPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }
