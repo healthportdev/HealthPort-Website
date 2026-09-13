@@ -54,6 +54,15 @@ const localBusinessJsonLd = {
     "@type": "Country",
     name: "Nigeria",
   },
+  // Approximate coordinates for Obafemi Awolowo Way, Ikeja. Refine
+  // to the exact Phillipi Centre GPS pin when confirmed with the
+  // client — Google will still match to the building given the
+  // street address above.
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 6.614519,
+    longitude: 3.355585,
+  },
 };
 
 export default function ContactPage() {
