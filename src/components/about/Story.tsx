@@ -348,24 +348,43 @@ function Timeline({ active }: { active: boolean }) {
         </h3>
       </div>
 
-      {/* Chart — flex row of bar columns. Bars grow whenever `active`
-          becomes true (i.e. each time the section re-enters view). */}
+      {/* Chart — horizontal-scrollable flex row on mobile so the six
+          columns don't squish, snaps to a 6-column grid on md+. Bars
+          grow whenever `active` becomes true (i.e. each time the
+          section re-enters view). */}
       <div
-        className="grid w-full"
+        className="w-full overflow-x-auto md:overflow-visible"
         style={{
-          gridTemplateColumns: `repeat(${milestones.length}, 1fr)`,
-          columnGap: "clamp(0.5rem, 1.2vw, 1.25rem)",
-          height: "clamp(340px, 36vw, 480px)",
+          scrollbarWidth: "none",
+          WebkitOverflowScrolling: "touch",
+          scrollSnapType: "x mandatory",
         }}
       >
-        {milestones.map((m, i) => (
-          <BarColumn
-            key={m.year}
-            milestone={m}
-            index={i}
-            active={active}
-          />
-        ))}
+        <div
+          className="flex md:grid"
+          style={{
+            gridTemplateColumns: `repeat(${milestones.length}, 1fr)`,
+            columnGap: "clamp(0.5rem, 1.2vw, 1.25rem)",
+            gap: "clamp(1rem, 2vw, 1.5rem)",
+            height: "clamp(340px, 36vw, 480px)",
+            minWidth: "100%",
+            paddingInline: "0.25rem",
+          }}
+        >
+          {milestones.map((m, i) => (
+            <div
+              key={m.year}
+              // Mobile: fixed width in flex row so bars stay legible
+              // even when squeezed into the horizontal scroller.
+              // Desktop: width auto so the grid's `1fr` columns split
+              // the space evenly.
+              className="shrink-0 w-[26vw] min-w-[96px] max-w-[140px] md:w-auto md:min-w-0 md:max-w-none md:shrink"
+              style={{ scrollSnapAlign: "start" }}
+            >
+              <BarColumn milestone={m} index={i} active={active} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

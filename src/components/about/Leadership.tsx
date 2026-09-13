@@ -191,7 +191,7 @@ function PolaroidCard({ member }: { member: TeamMember }) {
       >
         <Image
           src={member.image}
-          alt=""
+          alt={`${member.name}, ${member.role}`}
           fill
           sizes="(min-width: 768px) 20vw, 60vw"
           style={{ objectFit: "cover" }}
