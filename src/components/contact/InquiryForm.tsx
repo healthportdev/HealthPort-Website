@@ -405,6 +405,31 @@ export function InquiryForm() {
         })}
       </fieldset>
 
+      {/* Honeypot — a real-looking field that's kept off-screen and
+          out of the tab order. Humans never see or fill it; bots
+          that fill every input trip the server-side check. */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          top: "-9999px",
+          height: 0,
+          width: 0,
+          overflow: "hidden",
+        }}
+      >
+        <label>
+          Website (leave empty)
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
+      </div>
+
       {/* Fields */}
       <div className="flex flex-col gap-5">
         <Field label="Full name" htmlFor="name">

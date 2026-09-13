@@ -56,7 +56,46 @@ type Payload = {
   organisation?: string;
   phone?: string;
   message?: string;
+  // Honeypot — a hidden field on the client form. Real users leave
+  // it blank; bots that fill every input trip it and get rejected.
+  website?: string;
 };
+
+// ── Rate limit ──────────────────────────────────────────────────────────
+// Very light in-memory rate limit — 5 submissions per IP per 10 minutes.
+// On Netlify/Vercel serverless this Map is per-instance (not shared),
+// which is fine for a marketing form: worst case a determined attacker
+// hits multiple instances but total volume stays bounded by Netlify's
+// concurrent-invocation limits. For higher assurance move to Upstash /
+// Redis; deliberately kept dependency-free here.
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 5;
+const rateStore = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const history = (rateStore.get(ip) ?? []).filter(
+    (t) => now - t < RATE_LIMIT_WINDOW_MS
+  );
+  if (history.length >= RATE_LIMIT_MAX) {
+    rateStore.set(ip, history);
+    return true;
+  }
+  history.push(now);
+  rateStore.set(ip, history);
+  return false;
+}
+
+function clientIp(request: Request): string {
+  // Trust common reverse-proxy headers set by Netlify / Vercel / etc.
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  return (
+    request.headers.get("x-real-ip") ??
+    request.headers.get("cf-connecting-ip") ??
+    "unknown"
+  );
+}
 
 // Very light sanitiser — strips ASCII control chars (0x00-0x1F and
 // 0x7F DEL) plus trims and caps length. Not a full XSS defence
@@ -99,6 +138,15 @@ export async function POST(request: Request) {
     );
   }
 
+  // Rate limit — before we do any parsing work.
+  const ip = clientIp(request);
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again in a few minutes." },
+      { status: 429 }
+    );
+  }
+
   let body: Payload;
   try {
     body = (await request.json()) as Payload;
@@ -107,6 +155,15 @@ export async function POST(request: Request) {
       { error: "Invalid JSON body." },
       { status: 400 }
     );
+  }
+
+  // Honeypot — bots fill every input; humans never see this field.
+  // Silently return 200 so bots can't tell they're being blocked.
+  if (body.website && body.website.trim().length > 0) {
+    console.warn(
+      `[/api/contact] Honeypot triggered from ${ip} — silently dropping.`
+    );
+    return NextResponse.json({ ok: true });
   }
 
   const type = clean(body.type, 32);
