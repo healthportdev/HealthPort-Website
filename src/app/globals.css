@@ -37,6 +37,16 @@
     scroll-behavior: smooth;
   }
 
+  /* Below-fold performance — skip layout + paint for sections that
+     aren't in the viewport yet. `contain-intrinsic-size: auto 800px`
+     reserves a plausible height so the scrollbar stays stable while
+     the browser fills in real content on scroll. The first section
+     (hero) is left alone so it renders instantly on load. */
+  main > section:not(:first-child) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+  }
+
   body {
     background: var(--color-bg);
     color: var(--color-fg);
