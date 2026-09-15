@@ -18,9 +18,15 @@ import airupMascot from "../../../public/images/airup-mascot.png";
 export function AirUpMention() {
   return (
     <section
+      id="airup"
       className="w-full"
       aria-label="AirUp"
-      style={{ paddingBlock: "var(--spacing-section)" }}
+      style={{
+        paddingBlock: "var(--spacing-section)",
+        // Nudge the anchor target below the sticky nav so #airup
+        // deep-links (from the footer) don't hide the section header.
+        scrollMarginTop: "5rem",
+      }}
     >
       <div className="container-page">
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] gap-12 md:gap-20 items-center">

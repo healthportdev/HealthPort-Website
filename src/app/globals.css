@@ -161,6 +161,20 @@
     .flow-now-pulse { animation: none; opacity: 0.5; }
   }
 
+  /* Footer AirUp pill — the mascot idle-floats via .airup-float
+     already; on hover the whole link nudges up slightly to signal
+     it's clickable. Pauses the float so the mascot sits steady
+     while the user's cursor is on it. */
+  .footer-airup {
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .footer-airup:hover {
+    transform: translateY(-2px);
+  }
+  .footer-airup:hover .airup-float {
+    animation-play-state: paused;
+  }
+
   /* Leadership ticker — continuous horizontal marquee of team
      polaroids. Same grammar the home TrustBar uses for partner
      logos: track is `width: max-content`, slides via translateX
