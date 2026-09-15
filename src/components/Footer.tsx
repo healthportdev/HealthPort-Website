@@ -122,13 +122,13 @@ export function Footer() {
             }}
           >
             <p>{new Date().getFullYear()} Healthport. Lagos, Nigeria.</p>
-            <p className="flex items-center gap-1.5 flex-wrap">
+            <p className="flex items-center gap-2 flex-wrap">
               <span>Community care by</span>
               <Link
                 href="/about#airup"
                 aria-label="AirUp — HealthPort's community-facing brand"
                 title="AirUp — HealthPort's community-facing brand"
-                className="footer-airup inline-flex items-center gap-1"
+                className="footer-airup inline-flex items-center gap-2"
                 style={{
                   color: "var(--color-teagreen)",
                   textDecoration: "none",
@@ -136,18 +136,19 @@ export function Footer() {
               >
                 <span
                   aria-hidden
-                  className="airup-float relative inline-block"
-                  style={{
-                    width: "22px",
-                    height: "24px",
-                  }}
+                  className="airup-float inline-flex"
+                  style={{ lineHeight: 0 }}
                 >
                   <Image
                     src="/images/airup-mascot.png"
                     alt=""
-                    fill
-                    sizes="22px"
-                    style={{ objectFit: "contain" }}
+                    width={36}
+                    height={40}
+                    style={{
+                      display: "block",
+                      width: "36px",
+                      height: "auto",
+                    }}
                   />
                 </span>
                 <span
