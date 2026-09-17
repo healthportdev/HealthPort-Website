@@ -130,7 +130,11 @@ export function OxygenGap() {
               is a single line: a wide-tracked colored LABEL + a plain-Ink
               statement, keyline separated. All type capped at 14px per spec. */}
           <div className="col-span-12 md:col-span-9 flex flex-col gap-8 md:gap-10">
-            <div>
+            {/* Intro block — right-aligned on desktop so it balances
+                the bleed valve image on the left of the section.
+                Reads left→right on mobile where the image is
+                hidden. */}
+            <div className="md:text-right md:ml-auto">
               <p
                 className="eyebrow mb-4"
                 style={{ color: "var(--color-violet)" }}
@@ -155,6 +159,7 @@ export function OxygenGap() {
                 </span>
               </h2>
               <p
+                className="md:ml-auto"
                 style={{
                   fontSize: "18px",
                   lineHeight: 1.55,

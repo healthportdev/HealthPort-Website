@@ -33,6 +33,9 @@ export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loadVideo, setLoadVideo] = useState(true);
   const [muted, setMuted] = useState(true);
+  // Only meaningful once the reader has unmuted (i.e. is actively
+  // watching). While muted, the video is a background loop.
+  const [paused, setPaused] = useState(false);
 
   // Bandwidth + reduced-motion guards on mount
   useEffect(() => {
@@ -140,9 +143,26 @@ export function HeroVideo() {
       const p = v.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
       setMuted(false);
+      setPaused(false);
     } else {
       v.muted = true;
       setMuted(true);
+    }
+  };
+
+  // Click on the video body toggles play/pause when the reader is
+  // actively watching (sound on). Muted background loop doesn't
+  // hijack clicks — the pill button handles unmute in that state.
+  const handleVideoClick = () => {
+    const v = videoRef.current;
+    if (!v || muted) return;
+    if (v.paused) {
+      const p = v.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+      setPaused(false);
+    } else {
+      v.pause();
+      setPaused(true);
     }
   };
 
@@ -180,6 +200,10 @@ export function HeroVideo() {
             disableRemotePlayback
             aria-label="HealthPort in the field, muted loop"
             className="absolute inset-0 w-full h-full object-cover"
+            onClick={handleVideoClick}
+            onPlay={() => setPaused(false)}
+            onPause={() => setPaused(true)}
+            style={{ cursor: muted ? "default" : "pointer" }}
           />
         )}
 
@@ -256,9 +280,50 @@ export function HeroVideo() {
                 </svg>
               )}
             </span>
-            {muted ? "Watch with sound" : "Sound on · tap to mute"}
+            {muted
+              ? "Watch with sound"
+              : "Sound on · tap to mute"}
           </button>
         </div>
+
+        {/* Play overlay — shows when the reader has unmuted (i.e. is
+            actively watching) and paused the video. Clicking anywhere
+            on it resumes playback. Hidden while muted or playing. */}
+        {!muted && paused && (
+          <button
+            type="button"
+            onClick={handleVideoClick}
+            aria-label="Resume video"
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              background: "rgba(0, 19, 22, 0.35)",
+              cursor: "pointer",
+              border: "none",
+            }}
+          >
+            <span
+              aria-hidden
+              className="inline-flex items-center justify-center"
+              style={{
+                width: "72px",
+                height: "72px",
+                borderRadius: "50%",
+                background: "rgba(0, 19, 22, 0.75)",
+                border: "1px solid rgba(242, 239, 234, 0.2)",
+                color: "var(--color-teagreen)",
+                backdropFilter: "blur(6px)",
+                WebkitBackdropFilter: "blur(6px)",
+              }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M8 5.5v13l11-6.5-11-6.5z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+          </button>
+        )}
       </div>
     </div>
   );

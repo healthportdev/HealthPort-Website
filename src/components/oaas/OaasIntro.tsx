@@ -33,7 +33,7 @@ export function OaasIntro() {
           composition rather than empty padding. */}
       <div className="flex-1 flex items-center container-page relative">
         <div
-          className="w-full flex flex-col items-center text-center"
+          className="w-full flex flex-col items-start text-left"
           data-parallax="-0.08"
         >
           {/* Kicker — small brand + product tag establishing context BEFORE
@@ -63,7 +63,7 @@ export function OaasIntro() {
             the promise.
           </h1>
           <p
-            className="mx-auto max-w-2xl"
+            className="max-w-2xl"
             style={{
               fontSize: "clamp(1rem, 0.9rem + 0.4vw, 1.15rem)",
               lineHeight: 1.55,
@@ -75,7 +75,9 @@ export function OaasIntro() {
             never runs out.
           </p>
 
-          <ModelFlow />
+          <div className="w-full">
+            <ModelFlow />
+          </div>
         </div>
       </div>
 
@@ -146,7 +148,7 @@ function ScrollCue() {
 function ModelFlow() {
   return (
     <div
-      className="mt-10 md:mt-14 flex flex-wrap items-center justify-center gap-2 md:gap-3"
+      className="mt-10 md:mt-14 flex flex-wrap items-center gap-2 md:gap-3"
       aria-label="How the model works: hospital, HealthPort, oxygen always available"
     >
       <ModelNode icon={<HospitalIcon />} label="Hospital" />

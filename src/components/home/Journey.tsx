@@ -110,10 +110,14 @@ export function Journey() {
       aria-label="How it works"
       style={{ paddingBlock: "var(--spacing-section)" }}
     >
-      {/* Intro — stays contained. Parallax on the whole block so children
-          move as a unit and never overlap. */}
+      {/* Intro — centered, matches the section-header grammar the
+          cross-page audit picked up on. Parallax on the whole block
+          so children move as a unit and never overlap. */}
       <div className="container-page mb-14 md:mb-20">
-        <div className="max-w-3xl" data-parallax="-0.1">
+        <div
+          className="max-w-3xl mx-auto text-center flex flex-col items-center"
+          data-parallax="-0.1"
+        >
           <p className="eyebrow mb-6" style={{ color: "var(--color-violet)" }}>
             How it works
           </p>

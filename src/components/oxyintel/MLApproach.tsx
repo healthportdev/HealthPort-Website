@@ -73,9 +73,13 @@ export function MLApproach() {
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.75rem, 7vw, 7rem)",
-              lineHeight: 1.02,
-              letterSpacing: "-0.035em",
+              // Toned down from clamp(2.75rem, 7vw, 7rem) — was
+              // competing with the page h1. Now 44px → 64px so it's
+              // still a monumental statement but visibly smaller than
+              // the hero on wide desktop.
+              fontSize: "clamp(2.25rem, 4vw, 4rem)",
+              lineHeight: 1.04,
+              letterSpacing: "-0.03em",
               fontWeight: 700,
               color: "var(--color-heading)",
               margin: 0,
@@ -129,7 +133,7 @@ export function MLApproach() {
               large language models
             </strong>
             . Every forecast is checked against ground truth, and the
-            system improves as more operational data accumulates — fed
+            system improves as more operational data accumulates, fed
             by environmental variables, connected sensors, and clinical
             patterns.
           </p>
