@@ -7,11 +7,12 @@ import { Leadership } from "@/components/about/Leadership";
 import { Licenses } from "@/components/about/Licenses";
 import { AirUpMention } from "@/components/about/AirUpMention";
 import { Press } from "@/components/about/Press";
+import { SHOW_STANDARDS } from "@/lib/flags";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "HealthPort is a healthcare infrastructure company delivering Oxygen as a Service to hospitals across Africa. Our mission: no patient dies from lack of oxygen.",
+    "HealthPort is a healthcare infrastructure company delivering Oxygen as a Service across sub-Saharan African hospitals. Our mission: no patient dies from lack of oxygen.",
   openGraph: {
     title: "About · HealthPort",
     description:
@@ -29,7 +30,7 @@ export default function AboutPage() {
       <CoreValues />
       <Story />
       <Leadership />
-      <Licenses />
+      {SHOW_STANDARDS && <Licenses />}
       <AirUpMention />
       <Press />
     </>

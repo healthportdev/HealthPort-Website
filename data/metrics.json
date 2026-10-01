@@ -1,0 +1,28 @@
+{
+  "$comment": "Public impact metrics for HealthPort Africa. Edit values here; consumers read from this file. Source columns are for internal reference and not shown to visitors.",
+  "hospitalsServed": {
+    "value": 10,
+    "suffix": "+",
+    "label": "Hospitals served",
+    "source": "Internal CRM"
+  },
+  "litresDelivered": {
+    "value": 2.4,
+    "suffix": "M+",
+    "decimals": 1,
+    "label": "Litres of medical oxygen delivered",
+    "source": "Consumption Logs"
+  },
+  "patientsSupported": {
+    "value": 30000,
+    "suffix": "+",
+    "label": "Patients supported",
+    "source": "Clinical Impact Data"
+  },
+  "supplyReliability": {
+    "value": 99,
+    "suffix": "%",
+    "label": "Supply reliability",
+    "source": "Operational SLA"
+  }
+}

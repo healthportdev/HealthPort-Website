@@ -376,6 +376,10 @@ function StatusPill({ status, color }: { status: Status; color: string }) {
  * the tiles every ~1.4s, signalling continuous scanning by OxyTrack.
  * Matches the copy: real-time tracking of cylinders through their
  * lifecycle (filled → in use → empty).
+ *
+ * ASSET NEEDED: stakeholder review asks us to replace this
+ * illustrative scene with authentic OxyTrack dashboard screenshots
+ * once product exports are supplied — see docs/REVIEW-BLOCKERS.md.
  */
 function OxyTrackScene({ accent }: { accent: string }) {
   type Status = "filled" | "in-use" | "empty";

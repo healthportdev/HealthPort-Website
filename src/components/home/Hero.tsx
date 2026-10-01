@@ -34,9 +34,8 @@ export function Hero() {
               color: "var(--color-muted)",
             }}
           >
-            HealthPort delivers reliable medical oxygen infrastructure to
-            hospitals across Africa. You focus on patient care. We make sure
-            oxygen is always available.
+            HealthPort delivers reliable oxygen infrastructure. You focus
+            on patient care while we ensure a continuous oxygen supply.
           </p>
           <div className="flex flex-wrap justify-center gap-3 mb-16 md:mb-20">
             <Link href="/contact" className="btn-primary">

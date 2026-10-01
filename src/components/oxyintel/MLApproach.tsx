@@ -91,16 +91,16 @@ export function MLApproach() {
                 "opacity 720ms cubic-bezier(0.22, 1, 0.36, 1) 140ms, transform 720ms cubic-bezier(0.22, 1, 0.36, 1) 140ms",
             }}
           >
-            Under the hood.
+            Built to keep oxygen
             <br />
             <span style={{ color: "var(--color-violet)" }}>
-              Nothing hidden.
+              one step ahead.
             </span>
           </h2>
 
-          {/* Sub — classic statistics + ML + LLMs, with ML and LLMs
-              bolded via a heavier weight and Ink colour so they pop
-              against the muted body copy. */}
+          {/* Sub — public-facing framing: outcomes, not architecture.
+              The detailed model / sensor stack lives in the investor
+              deck, not on the marketing site (per stakeholder review). */}
           <p
             style={{
               fontSize: "clamp(15px, 1.15vw, 18px)",
@@ -114,28 +114,9 @@ export function MLApproach() {
                 "opacity 620ms cubic-bezier(0.22, 1, 0.36, 1) 320ms, transform 620ms cubic-bezier(0.22, 1, 0.36, 1) 320ms",
             }}
           >
-            Classical statistical models run alongside{" "}
-            <strong
-              style={{
-                fontWeight: 700,
-                color: "var(--color-heading)",
-              }}
-            >
-              machine learning
-            </strong>{" "}
-            and{" "}
-            <strong
-              style={{
-                fontWeight: 700,
-                color: "var(--color-heading)",
-              }}
-            >
-              large language models
-            </strong>
-            . Every forecast is checked against ground truth, and the
-            system improves as more operational data accumulates, fed
-            by environmental variables, connected sensors, and clinical
-            patterns.
+            OxyIntel learns your facility&rsquo;s usage patterns and flags
+            supply risk before it becomes a shortage — so your team plans
+            refills and maintenance instead of reacting to them.
           </p>
         </div>
       </div>

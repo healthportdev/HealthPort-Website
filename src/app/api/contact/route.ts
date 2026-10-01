@@ -7,7 +7,7 @@
  *
  *   partner   → aishat.adeniji@healthportafrica.com
  *   hospital  → careteam@healthportafrica.com
- *   careers   → careteam@healthportafrica.com
+ *   careers   → careers@healthportafrica.com   (Phase 1 direct inbox)
  *   media     → healthportcomms@gmail.com
  *   general   → healthportcomms@gmail.com
  *
@@ -37,7 +37,10 @@ export const dynamic = "force-dynamic";
 // falls back to `general`.
 const routeMap: Record<string, string> = {
   hospital: "careteam@healthportafrica.com",
-  careers: "careteam@healthportafrica.com",
+  // Careers Phase 1 — direct route to careers@ per stakeholder review.
+  // Phase 2 (Zoho Mail forwarding to multiple hiring stakeholders) is
+  // out of scope for this build; see docs/REVIEW-BLOCKERS.md.
+  careers: "careers@healthportafrica.com",
   partner: "aishat.adeniji@healthportafrica.com",
   media: "healthportcomms@gmail.com",
   general: "healthportcomms@gmail.com",

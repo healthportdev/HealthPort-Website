@@ -121,7 +121,7 @@ export function Footer() {
               color: "rgba(242,239,234,0.5)",
             }}
           >
-            <p>{new Date().getFullYear()} Healthport. Lagos, Nigeria.</p>
+            <p>{new Date().getFullYear()} HealthPort. Lagos, Nigeria.</p>
             <p className="flex items-center gap-2 flex-wrap">
               <span>Community care by</span>
               <Link

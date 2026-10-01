@@ -32,8 +32,11 @@ type Capability = {
 const capabilities: Capability[] = [
   {
     key: "realtime",
-    title: "Real-time data",
-    body: "IoT sensors continuously monitor cylinder, pipeline, and ward outlet pressure, flow, and valve status in real time.",
+    title: "Real-time visibility",
+    // COPY NEEDED: confirm the exact monitoring points (central
+    // reticulation manifolds vs. storage manifolds vs. bedside outlets)
+    // once stakeholder answers — see docs/REVIEW-BLOCKERS.md.
+    body: "Live readings across cylinders, reticulation lines, and ward outlets — so your team can see supply, flow, and pressure at a glance.",
     accent: "var(--color-teal)",
     scene: VitalsScene,
   },
@@ -99,8 +102,9 @@ export function WhatItDoes() {
             What the platform does
           </p>
           <h2 className="mb-4" style={{ lineHeight: 1.06 }}>
-            From raw sensor{" "}
-            <span style={{ color: "var(--color-violet)" }}>data</span> to
+            Turning day-to-day{" "}
+            <span style={{ color: "var(--color-violet)" }}>oxygen supply</span>{" "}
+            into
             <br />
             <span style={{ color: "var(--color-violet)" }}>
               clinical insight.
@@ -113,8 +117,8 @@ export function WhatItDoes() {
               color: "var(--color-muted)",
             }}
           >
-            OxyIntel turns every cylinder and reticulation point into a
-            live data source, keeping supply ahead of demand.
+            OxyIntel gives your team live visibility across every cylinder
+            and reticulation point, so supply stays ahead of demand.
           </p>
         </div>
 

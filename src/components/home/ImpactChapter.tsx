@@ -14,21 +14,9 @@
  */
 import Image from "next/image";
 import { CountUp } from "@/components/motion/CountUp";
+import { metricsOrdered } from "@/lib/metrics";
 
-type Stat = {
-  value: number;
-  suffix?: string;
-  decimals?: number;
-  label: string;
-};
-
-// FACT NEEDED: numbers are current client targets pending source-cited confirmation.
-const stats: Stat[] = [
-  { value: 10, suffix: "+", label: "Hospitals served" },
-  { value: 2.4, suffix: "M+", decimals: 1, label: "Litres of medical oxygen delivered" },
-  { value: 30000, suffix: "+", label: "Patients supported" },
-  { value: 99, suffix: "%", label: "Supply reliability" },
-];
+const stats = metricsOrdered;
 
 export function ImpactChapter() {
   return (

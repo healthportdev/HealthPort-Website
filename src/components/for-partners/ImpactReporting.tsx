@@ -19,6 +19,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { IMPACT_REPORT_URL } from "@/lib/flags";
 
 type Stat = {
   label: string;
@@ -132,37 +133,68 @@ export function ImpactReporting() {
               funders, governments, and delivery partners. Ground-truth
               from OxyIntel — not survey estimates.
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2"
-              style={{
-                background: "var(--color-teagreen)",
-                color: "var(--color-ink)",
-                fontFamily: "var(--font-display)",
-                fontSize: "14.5px",
-                fontWeight: 700,
-                letterSpacing: "-0.005em",
-                padding: "0.75rem 1.25rem",
-                borderRadius: "8px",
-              }}
-            >
-              Request full report
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
+            <div className="flex flex-wrap items-center gap-3">
+              {IMPACT_REPORT_URL && (
+                <a
+                  href={IMPACT_REPORT_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2"
+                  style={{
+                    background: "var(--color-teagreen)",
+                    color: "var(--color-ink)",
+                    fontFamily: "var(--font-display)",
+                    fontSize: "14.5px",
+                    fontWeight: 700,
+                    letterSpacing: "-0.005em",
+                    padding: "0.75rem 1.25rem",
+                    borderRadius: "8px",
+                  }}
+                  aria-label="View the HealthPort Impact Report (opens in a new tab)"
+                >
+                  View impact report
+                  <ExternalArrow />
+                </a>
+              )}
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2"
+                style={{
+                  background: IMPACT_REPORT_URL
+                    ? "transparent"
+                    : "var(--color-teagreen)",
+                  color: IMPACT_REPORT_URL
+                    ? "var(--color-parchment)"
+                    : "var(--color-ink)",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  letterSpacing: "-0.005em",
+                  padding: "0.75rem 1.25rem",
+                  borderRadius: "8px",
+                  border: IMPACT_REPORT_URL
+                    ? "1px solid rgba(242, 239, 234, 0.4)"
+                    : "1px solid transparent",
+                }}
               >
-                <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
+                Request full report
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
 
           {/* RIGHT — dashboard card. Parallax on an OUTER wrapper so
@@ -184,6 +216,28 @@ export function ImpactReporting() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* --------------------------- ExternalArrow ---------------------------- */
+
+function ExternalArrow() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 3h7v7M13 3l-8 8"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
