@@ -19,7 +19,7 @@ type Stage = {
   chip: string;
   title: string;
   emphasis: string; // portion of the title colored in the card's accent
-  body: string;
+  body: React.ReactNode;
   // Card palette — left is the "airy" tint, right is the deeper accent
   // hosting the visual. Both need to satisfy the brand's colour pairings
   // (Ink text on the left tint, Parchment or Ink on the right accent).
@@ -40,7 +40,14 @@ const stages: Stage[] = [
     chip: "We assess",
     title: "First, we look at what you have.",
     emphasis: "what you have",
-    body: "Wards, bed spaces, existing infrastructure, and how much oxygen you actually use. So whatever we recommend fits your real facility.",
+    body: (
+      <>
+        Wards, bed spaces, existing infrastructure, and your hospital&rsquo;s
+        oxygen usage. We evaluate what you actually use versus what you need
+        per <strong className="font-semibold">WHO</strong> standards, so our
+        solution fits your real facility.
+      </>
+    ),
     bgLeft: "color-mix(in srgb, var(--color-teagreen) 45%, #FFFFFF)",
     bgRight: "var(--color-teal)",
     accentText: "var(--color-teal)",
@@ -49,9 +56,9 @@ const stages: Stage[] = [
     key: "design",
     n: "02",
     chip: "We design",
-    title: "Then we pick the right fit.",
+    title: "Then we tailor the right fit.",
     emphasis: "right fit",
-    body: "Some hospitals need an on-site oxygen plant. Others need managed cylinders. We recommend whichever actually works for your facility.",
+    body: "Tailored to your facility: some hospitals require on-site oxygen generation plants, others need low or bulk storage, and some run best on hybrid manifold distribution. We can discuss specific piping and reticulation needs.",
     bgLeft: "color-mix(in srgb, var(--color-sky) 22%, #FFFFFF)",
     bgRight: "var(--color-sky)",
     accentText: "color-mix(in srgb, var(--color-sky) 60%, var(--color-ink))",
@@ -71,9 +78,9 @@ const stages: Stage[] = [
     key: "stay",
     n: "04",
     chip: "We stay",
-    title: "And we stay, every day after.",
-    emphasis: "every day after",
-    body: "Monitoring, refills, maintenance, and one predictable monthly invoice. Oxygen is there when your patients need it. Always.",
+    title: "The HealthPort team working alongside the hospital clinical team.",
+    emphasis: "hospital clinical team",
+    body: "Monitoring, refills, maintenance, and predictable, locked-in pricing with no surge costs during market scarcity. Oxygen is there when your patients need it. Always.",
     bgLeft: "color-mix(in srgb, var(--color-violet) 12%, #FFFFFF)",
     bgRight: "var(--color-violet)",
     accentText: "var(--color-violet)",
@@ -427,6 +434,10 @@ function AssessVisual() {
 }
 
 function DesignVisual() {
+  // ASSET NEEDED: swap this illustrative SVG for real on-site plant
+  // photography (machinery, skid, facility installs) once photos are
+  // supplied — see docs/REVIEW-BLOCKERS.md.
+  //
   // Building silhouettes — a central hospital with an on-site plant
   // module on the left and a managed cylinder delivery on the right.
   // Both feed the hospital via pulses that travel down their pipe/route

@@ -15,6 +15,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { BILLING_DISCLAIMER } from "@/lib/metrics";
 
 const hospitalGets = {
   eyebrow: "Your side",
@@ -142,6 +143,19 @@ export function HospitalGetsHealthPortTakes() {
           <SidePanel side="light" data={hospitalGets} revealed={revealed} />
           <SidePanel side="dark" data={healthPortTakes} revealed={revealed} />
         </div>
+
+        <p
+          role="note"
+          style={{
+            marginTop: "clamp(1.5rem, 2vw, 2rem)",
+            fontSize: "12px",
+            lineHeight: 1.5,
+            color: "var(--color-muted)",
+            maxWidth: "56ch",
+          }}
+        >
+          *{BILLING_DISCLAIMER}
+        </p>
       </div>
     </section>
   );

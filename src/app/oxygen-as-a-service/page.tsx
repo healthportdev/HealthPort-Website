@@ -5,6 +5,7 @@ import { WhyOaas } from "@/components/oaas/WhyOaas";
 import { WhatsIncluded } from "@/components/oaas/WhatsIncluded";
 import { OaasJourney } from "@/components/oaas/OaasJourney";
 import { HospitalGetsHealthPortTakes } from "@/components/oaas/HospitalGetsHealthPortTakes";
+import { FAQ } from "@/components/oaas/FAQ";
 import { Eligibility } from "@/components/oaas/Eligibility";
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default function OaaSPage() {
       <WhatsIncluded />
       <OaasJourney />
       <HospitalGetsHealthPortTakes />
+      <FAQ />
       <Eligibility />
     </>
   );

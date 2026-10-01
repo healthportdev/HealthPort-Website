@@ -6,7 +6,7 @@ import { HeroWash } from "@/components/shared/HeroWash";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact HealthPort, the healthcare infrastructure company delivering Oxygen as a Service to hospitals across Africa. Routed inquiry form for hospitals, partners, media, and careers.",
+    "Contact HealthPort, the healthcare infrastructure company delivering Oxygen as a Service across sub-Saharan African hospitals. Routed inquiry form for hospitals, partners, media, and careers.",
   openGraph: {
     title: "Contact · HealthPort",
     description:
@@ -26,7 +26,7 @@ const localBusinessJsonLd = {
   url: "https://healthportafrica.com",
   image: "https://healthportafrica.com/brand/logo-horizontal-primary.svg",
   description:
-    "Healthcare infrastructure company delivering Oxygen as a Service to hospitals across Africa.",
+    "Healthcare infrastructure company delivering Oxygen as a Service across sub-Saharan African hospitals.",
   telephone: "+234-806-412-4356",
   email: "hello@healthportafrica.com",
   address: {

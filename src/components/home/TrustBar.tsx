@@ -11,6 +11,13 @@ type Partner = {
   file: string;
   w: number;
   h: number;
+  // Extreme-aspect wordmarks (width/height > ~4) get a max-width cap
+  // so they don't dominate the marquee against square logomarks.
+  wordmark?: boolean;
+  // Source file is designed for a dark background (white on black
+  // lockup). CSS invert flips it so it reads on our light marquee
+  // without shipping a black brick.
+  invert?: boolean;
 };
 
 const partners: Partner[] = [
@@ -18,6 +25,8 @@ const partners: Partner[] = [
   { name: "Edo State Primary Healthcare Development Agency", file: "edo-state-phcda.png",         w: 600, h: 600 },
   { name: "Aig-Imoukhuede Foundation",                    file: "aig-imoukhuede-foundation.png", w: 1000, h: 700 },
   { name: "MIT Solve",                                    file: "mit-solve.png",                 w: 600, h: 240 },
+  { name: "MIT KSC",                                      file: "mit-ksc.png",                   w: 480, h:  96, wordmark: true },
+  { name: "Cargoplug",                                    file: "cargoplug.svg",                 w: 180, h:  38, wordmark: true },
   { name: "D-Prize",                                      file: "d-prize.png",                   w: 500, h: 280 },
   { name: "Every Breath Counts",                          file: "every-breath-counts.png",       w: 2000, h: 543 },
   { name: "AFRIMED",                                      file: "afrimed.png",                   w: 320, h: 320 },
@@ -29,7 +38,7 @@ const partners: Partner[] = [
 export function TrustBar() {
   return (
     <section
-      aria-label="Trusted by hospitals, governments, and partners across Nigeria"
+      aria-label="Trusted by hospitals, governments, and partners across sub-Saharan Africa"
       style={{
         paddingBlock: "clamp(2.5rem, 1.75rem + 3vw, 5rem)",
         borderTop: "1px solid var(--color-keyline)",
@@ -44,7 +53,7 @@ export function TrustBar() {
             className="eyebrow text-center"
             style={{ color: "var(--color-muted)" }}
           >
-            Trusted by partners across Nigeria
+            Trusted by partners across sub-Saharan Africa
           </p>
         </div>
 
@@ -64,7 +73,10 @@ export function TrustBar() {
                   alt={i < partners.length ? p.name : ""}
                   width={p.w}
                   height={p.h}
-                  className="w-auto h-16 md:h-20 object-contain"
+                  className={`w-auto h-16 md:h-20 object-contain ${
+                    p.wordmark ? "max-w-[140px] md:max-w-[170px]" : ""
+                  }`}
+                  style={p.invert ? { filter: "invert(1)" } : undefined}
                 />
               </li>
             ))}

@@ -62,13 +62,26 @@ const types: PartnerType[] = [
 
 // Real partner logos — same set the home TrustBar uses. Files live in
 // /public/partners/ and were extracted from the Sept 2026 deck.
-type Logo = { name: string; file: string; w: number; h: number };
+type Logo = {
+  name: string;
+  file: string;
+  w: number;
+  h: number;
+  // Extreme-aspect wordmarks (w/h > ~4) get a max-width cap so they
+  // don't dominate the marquee next to square logomarks.
+  wordmark?: boolean;
+  // Source file designed for a dark background (white on black). CSS
+  // invert flips it so it reads on our light marquee.
+  invert?: boolean;
+};
 
 const logos: Logo[] = [
   { name: "Lagos State Ministry of Health", file: "lagos-state-moh.png", w: 600, h: 460 },
   { name: "Edo State Primary Healthcare Development Agency", file: "edo-state-phcda.png", w: 600, h: 600 },
   { name: "Aig-Imoukhuede Foundation", file: "aig-imoukhuede-foundation.png", w: 1000, h: 700 },
   { name: "MIT Solve", file: "mit-solve.png", w: 600, h: 240 },
+  { name: "MIT KSC", file: "mit-ksc.png", w: 480, h: 96, wordmark: true },
+  { name: "Cargoplug", file: "cargoplug.svg", w: 180, h: 38, wordmark: true },
   { name: "D-Prize", file: "d-prize.png", w: 500, h: 280 },
   { name: "Every Breath Counts", file: "every-breath-counts.png", w: 2000, h: 543 },
   { name: "AFRIMED", file: "afrimed.png", w: 320, h: 320 },
@@ -210,7 +223,7 @@ export function PartnerTypes() {
             className="eyebrow"
             style={{ color: "var(--color-muted)" }}
           >
-            Current partnership programmes
+            Current partners, supporters, and sponsors / funders
           </p>
         </div>
 
@@ -227,7 +240,10 @@ export function PartnerTypes() {
                   alt={i < logos.length ? p.name : ""}
                   width={p.w}
                   height={p.h}
-                  className="w-auto h-14 md:h-16 object-contain"
+                  className={`w-auto h-14 md:h-16 object-contain ${
+                    p.wordmark ? "max-w-[130px] md:max-w-[150px]" : ""
+                  }`}
+                  style={p.invert ? { filter: "invert(1)" } : undefined}
                 />
               </li>
             ))}

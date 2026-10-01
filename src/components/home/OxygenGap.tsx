@@ -36,8 +36,8 @@ const rows: Row[] = [
     body: (
       <>
         hospital departments{" "}
-        <strong className="font-semibold">can&rsquo;t see</strong> how much
-        oxygen is left until it runs out.
+        <strong className="font-semibold">can&rsquo;t track</strong> how much
+        oxygen is available where care actually happens.
       </>
     ),
   },
@@ -46,18 +46,21 @@ const rows: Row[] = [
     color: "var(--color-coral)",
     body: (
       <>
-        of wait between an empty cylinder and a refill during{" "}
-        <strong className="font-semibold">peak demand.</strong>
+        to days between an empty cylinder and a refill reaching the ward
+        that <strong className="font-semibold">actually needs it.</strong>
       </>
     ),
   },
   {
-    label: "Unseen",
+    label: "Last mile",
     color: "var(--color-violet)",
     body: (
       <>
-        Between service visits, cylinders and lines degrade with{" "}
-        <strong className="font-semibold">no warning.</strong>
+        The gap sits between depot and bedside, where coordination and
+        delivery routinely stall{" "}
+        <strong className="font-semibold">
+          even when supply exists upstream.
+        </strong>
       </>
     ),
   },
@@ -167,9 +170,11 @@ export function OxygenGap() {
                   maxWidth: "44rem",
                 }}
               >
-                Across Nigerian hospitals, the gap isn&rsquo;t supply.{" "}
+                Across sub-Saharan African hospitals, the gap isn&rsquo;t
+                supply.{" "}
                 <span style={{ color: "var(--color-violet)" }}>
-                  It&rsquo;s delivery, maintenance, and visibility.
+                  It&rsquo;s the last mile between oxygen being available
+                  and oxygen reaching the patient who needs it.
                 </span>
               </p>
             </div>

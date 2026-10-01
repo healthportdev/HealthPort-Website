@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { OxyIntelHero } from "@/components/oxyintel/OxyIntelHero";
 import { Modules } from "@/components/oxyintel/Modules";
 import { WhatItDoes } from "@/components/oxyintel/WhatItDoes";
-import { WhatsComing } from "@/components/oxyintel/WhatsComing";
 import { MLApproach } from "@/components/oxyintel/MLApproach";
 
 export const metadata: Metadata = {
@@ -24,7 +23,6 @@ export default function OxyIntelPage() {
       <OxyIntelHero />
       <Modules />
       <WhatItDoes />
-      <WhatsComing />
       <MLApproach />
     </>
   );

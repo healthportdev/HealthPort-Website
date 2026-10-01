@@ -13,7 +13,7 @@ export default async function OpenGraphImage() {
   return renderOGCard({
     title: "Never worry about oxygen again.",
     subtitle:
-      "Healthcare infrastructure delivering Oxygen as a Service to hospitals across Africa.",
+      "Reliable oxygen infrastructure across sub-Saharan African hospitals.",
     accent: "oxygen",
   });
 }

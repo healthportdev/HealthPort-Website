@@ -31,7 +31,7 @@ const SITE_URL = "https://healthportafrica.com";
 const SITE_NAME = "HealthPort";
 const SITE_TAGLINE = "HealthPort: Never worry about oxygen again";
 const SITE_DESCRIPTION =
-  "HealthPort is a healthcare infrastructure company delivering Oxygen as a Service to hospitals across Africa. You focus on patient care. We make sure oxygen is always available.";
+  "HealthPort delivers reliable oxygen infrastructure across sub-Saharan African hospitals. You focus on patient care while we ensure a continuous oxygen supply.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   authors: [{ name: "HealthPort", url: SITE_URL }],
   keywords: [
     "medical oxygen",
-    "oxygen supply Nigeria",
+    "oxygen supply sub-Saharan Africa",
     "oxygen as a service",
     "hospital oxygen infrastructure",
     "medical gas Africa",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: SITE_TAGLINE,
     description:
-      "Healthcare infrastructure delivering Oxygen as a Service to hospitals across Africa.",
+      "Reliable oxygen infrastructure for sub-Saharan African hospitals.",
     url: SITE_URL,
     siteName: SITE_NAME,
     type: "website",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TAGLINE,
     description:
-      "Healthcare infrastructure delivering Oxygen as a Service to hospitals across Africa.",
+      "Reliable oxygen infrastructure for sub-Saharan African hospitals.",
     creator: "@healthport",
     site: "@healthport",
   },

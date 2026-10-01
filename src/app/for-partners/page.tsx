@@ -7,7 +7,7 @@ import { ImpactReporting } from "@/components/for-partners/ImpactReporting";
 export const metadata: Metadata = {
   title: "For Partners",
   description:
-    "HealthPort partners with governments, development organisations, NGOs, funders, and distributors to expand reliable medical oxygen access across Africa.",
+    "HealthPort partners with governments, development organisations, NGOs, funders, and distributors to expand reliable medical oxygen access across sub-Saharan Africa.",
   openGraph: {
     title: "For Partners · HealthPort",
     description: "Reliable oxygen infrastructure, delivered at scale.",

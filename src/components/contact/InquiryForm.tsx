@@ -67,12 +67,15 @@ const inquiryTypes: InquiryType[] = [
   {
     value: "careers",
     label: "Careers",
-    hint: "Join the HealthPort team",
+    // Careers path is a pure mailto (Phase 1). When this option is
+    // active the form fields swap out for a CareersPanel with a
+    // direct email button — see the conditional render below.
+    hint: "Send your CV to careers@healthportafrica.com",
     icon: BriefcaseIcon,
     orgLabel: "Current employer",
     orgRequired: false,
-    messageLabel: "Which role interests you, and why HealthPort?",
-    submitLabel: "Send message",
+    messageLabel: "",
+    submitLabel: "",
   },
   {
     value: "general",
@@ -97,7 +100,9 @@ const fallbackCopy = {
 
 const routeMap: Record<string, string> = {
   hospital: "careteam@healthportafrica.com",
-  careers: "careteam@healthportafrica.com",
+  // Careers Phase 1 — direct to careers@ per stakeholder review. Kept
+  // in sync with the server-side routeMap in src/app/api/contact/route.ts.
+  careers: "careers@healthportafrica.com",
   partner: "aishat.adeniji@healthportafrica.com",
   media: "healthportcomms@gmail.com",
   general: "healthportcomms@gmail.com",
@@ -430,115 +435,127 @@ export function InquiryForm() {
         </label>
       </div>
 
-      {/* Fields */}
-      <div className="flex flex-col gap-5">
-        <Field label="Full name" htmlFor="name">
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            autoComplete="name"
-            className="field-input"
-          />
-        </Field>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <Field label="Work email" htmlFor="email">
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              className="field-input"
-            />
-          </Field>
-          <Field label={orgLabel} htmlFor="organisation">
-            <input
-              id="organisation"
-              name="organisation"
-              type="text"
-              required={orgRequired}
-              autoComplete="organization"
-              className="field-input"
-            />
-          </Field>
-        </div>
-
-        <Field label="Phone number" htmlFor="phone">
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            className="field-input"
-          />
-        </Field>
-
-        <Field label={messageLabel} htmlFor="message">
-          <textarea
-            id="message"
-            name="message"
-            required
-            rows={5}
-            className="field-input"
-          />
-        </Field>
-      </div>
-
-      {/* Submit row */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mt-8">
-        <p
-          style={{
-            fontSize: "12.5px",
-            lineHeight: 1.5,
-            color: "var(--color-muted)",
-            margin: 0,
-            maxWidth: "38ch",
-          }}
-        >
-          We respond to all inquiries within 24 hours.
-        </p>
-        <button
-          type="submit"
-          className="btn-primary"
-          disabled={status === "sending"}
-          style={
-            status === "sending"
-              ? { opacity: 0.7, cursor: "wait" }
-              : undefined
-          }
-        >
-          {status === "sending" ? "Sending…" : submitLabel}
-          {status !== "sending" && (
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M3 8h10M9 4l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+      {/* Careers path is a pure mailto per stakeholder Phase 1
+          direction — send CV directly to careers@healthportafrica.com.
+          When Careers is selected, swap the standard form fields for
+          a CareersPanel with a big mailto button and a copy-to-
+          clipboard fallback. When Zoho Recruit lands (Phase 3), this
+          block is where the embedded form goes. */}
+      {selectedType === "careers" ? (
+        <CareersPanel />
+      ) : (
+        <>
+          {/* Fields */}
+          <div className="flex flex-col gap-5">
+            <Field label="Full name" htmlFor="name">
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                autoComplete="name"
+                className="field-input"
               />
-            </svg>
-          )}
-        </button>
-      </div>
+            </Field>
 
-      {status === "error" && errorMsg && (
-        <p
-          role="alert"
-          className="text-[13px] mt-4"
-          style={{ color: "var(--color-coral)" }}
-        >
-          {errorMsg}
-        </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <Field label="Work email" htmlFor="email">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  className="field-input"
+                />
+              </Field>
+              <Field label={orgLabel} htmlFor="organisation">
+                <input
+                  id="organisation"
+                  name="organisation"
+                  type="text"
+                  required={orgRequired}
+                  autoComplete="organization"
+                  className="field-input"
+                />
+              </Field>
+            </div>
+
+            <Field label="Phone number" htmlFor="phone">
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                className="field-input"
+              />
+            </Field>
+
+            <Field label={messageLabel} htmlFor="message">
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={5}
+                className="field-input"
+              />
+            </Field>
+          </div>
+
+          {/* Submit row */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mt-8">
+            <p
+              style={{
+                fontSize: "12.5px",
+                lineHeight: 1.5,
+                color: "var(--color-muted)",
+                margin: 0,
+                maxWidth: "38ch",
+              }}
+            >
+              We respond to all inquiries within 24 hours.
+            </p>
+            <button
+              type="submit"
+              className="btn-primary"
+              disabled={status === "sending"}
+              style={
+                status === "sending"
+                  ? { opacity: 0.7, cursor: "wait" }
+                  : undefined
+              }
+            >
+              {status === "sending" ? "Sending…" : submitLabel}
+              {status !== "sending" && (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {status === "error" && errorMsg && (
+            <p
+              role="alert"
+              className="text-[13px] mt-4"
+              style={{ color: "var(--color-coral)" }}
+            >
+              {errorMsg}
+            </p>
+          )}
+        </>
       )}
 
       <style jsx>{`
@@ -574,6 +591,188 @@ export function InquiryForm() {
         }
       `}</style>
     </form>
+  );
+}
+
+/* --------------------------- CareersPanel ---------------------------- */
+
+/**
+ * CareersPanel — Phase 1 CV submission path.
+ *
+ * Replaces the standard inquiry form when Careers is selected. The
+ * application flow is a direct email: applicants send their CV and
+ * portfolio to careers@healthportafrica.com with the role of interest
+ * in the subject line. A `mailto:` button opens the reader's email
+ * client with the address, subject, and a short body template
+ * pre-filled; a copy-to-clipboard fallback is provided for readers
+ * without a native mail client configured.
+ *
+ * When Phase 3 (Zoho Recruit or embedded Zoho Form) lands, this panel
+ * gets replaced by the embedded application form.
+ */
+function CareersPanel() {
+  const address = "careers@healthportafrica.com";
+  const subject = "CV submission";
+  const body =
+    "Hi HealthPort team,\n\n" +
+    "Please find my CV and portfolio attached.\n\n" +
+    "Role of interest:\n" +
+    "Current employer:\n" +
+    "Portfolio link (optional):\n\n" +
+    "Thanks,\n";
+  const mailtoHref = `mailto:${address}?subject=${encodeURIComponent(
+    subject
+  )}&body=${encodeURIComponent(body)}`;
+
+  const [copied, setCopied] = useState(false);
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(address);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Silently ignore — the address is visible on the button itself,
+      // the user can still copy it manually.
+    }
+  };
+
+  return (
+    <div
+      className="flex flex-col"
+      style={{
+        background: "var(--color-parchment)",
+        border: "1px solid var(--color-keyline)",
+        borderRadius: "clamp(16px, 1.6vw, 20px)",
+        padding: "clamp(1.5rem, 2vw, 2rem)",
+      }}
+    >
+      <p
+        className="eyebrow mb-4"
+        style={{ color: "var(--color-violet)" }}
+      >
+        Send us your CV
+      </p>
+
+      <h3
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(20px, 1.7vw, 26px)",
+          fontWeight: 700,
+          lineHeight: 1.25,
+          letterSpacing: "-0.015em",
+          color: "var(--color-heading)",
+          margin: 0,
+          marginBottom: "0.85rem",
+        }}
+      >
+        Applications go straight to the hiring team.
+      </h3>
+
+      <p
+        style={{
+          fontSize: "14.5px",
+          lineHeight: 1.55,
+          color: "var(--color-fg)",
+          margin: 0,
+          marginBottom: "1.5rem",
+          maxWidth: "52ch",
+        }}
+      >
+        Email your CV and portfolio to{" "}
+        <span style={{ fontWeight: 600, color: "var(--color-heading)" }}>
+          {address}
+        </span>
+        . Include the role you&rsquo;re interested in so we can route
+        it correctly.
+      </p>
+
+      <ul
+        className="list-none mb-6 flex flex-col gap-1.5"
+        style={{
+          fontSize: "13.5px",
+          lineHeight: 1.5,
+          color: "var(--color-muted)",
+        }}
+      >
+        <li className="flex items-start gap-2">
+          <ChecklistBullet />
+          <span>CV (PDF preferred)</span>
+        </li>
+        <li className="flex items-start gap-2">
+          <ChecklistBullet />
+          <span>Portfolio link, if the role calls for one</span>
+        </li>
+        <li className="flex items-start gap-2">
+          <ChecklistBullet />
+          <span>Which role interests you, and a line on why</span>
+        </li>
+      </ul>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <a href={mailtoHref} className="btn-primary">
+          Email your CV
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 8h10M9 4l4 4-4 4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </a>
+        <button
+          type="button"
+          onClick={onCopy}
+          className="inline-flex items-center gap-2"
+          style={{
+            background: "transparent",
+            color: "var(--color-heading)",
+            fontFamily: "var(--font-display)",
+            fontSize: "13.5px",
+            fontWeight: 600,
+            letterSpacing: "-0.005em",
+            padding: "0.75rem 1rem",
+            borderRadius: "8px",
+            border: "1px solid var(--color-keyline)",
+          }}
+          aria-live="polite"
+        >
+          {copied ? "Copied" : "Copy email address"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ChecklistBullet() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+      style={{
+        flexShrink: 0,
+        marginTop: "0.2rem",
+        color: "var(--color-teal)",
+      }}
+    >
+      <path
+        d="M2 7.5 L 5.5 11 L 12 3"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
