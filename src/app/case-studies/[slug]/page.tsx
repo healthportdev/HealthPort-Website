@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) notFound();
+  const shareImage = { url: `/case-studies/${study.slug}/opengraph-image`, width: 1200, height: 630, alt: study.title };
   return {
     title: study.title,
     description: study.summary,
@@ -23,9 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: "article", title: study.title, description: study.summary,
       url: `/case-studies/${study.slug}`,
-      images: [{ url: study.image, alt: study.imageAlt }],
+      images: [shareImage],
     },
-    twitter: { card: "summary_large_image", title: study.title, description: study.summary, images: [study.image] },
+    twitter: { card: "summary_large_image", title: study.title, description: study.summary, images: [shareImage] },
   };
 }
 
