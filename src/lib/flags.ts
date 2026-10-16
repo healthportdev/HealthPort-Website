@@ -14,3 +14,6 @@ export const SHOW_STANDARDS = false;
 // For Partners page. `null` hides the button entirely. The button
 // opens in a new tab (target="_blank").
 export const IMPACT_REPORT_URL: string | null = "https://canva.link/8yphccs8e5f2uxv";
+
+// Hide draft press cards until real coverage, award details, and source URLs arrive.
+export const SHOW_PRESS = false;

@@ -1,6 +1,7 @@
 import { OG_CONTENT_TYPE, OG_SIZE, renderOGCard } from "@/lib/og";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
+export const alt = "HealthPort: reliable oxygen infrastructure for hospitals";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

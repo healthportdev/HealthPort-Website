@@ -7,7 +7,7 @@ import { Leadership } from "@/components/about/Leadership";
 import { Licenses } from "@/components/about/Licenses";
 import { AirUpMention } from "@/components/about/AirUpMention";
 import { Press } from "@/components/about/Press";
-import { SHOW_STANDARDS } from "@/lib/flags";
+import { SHOW_STANDARDS, SHOW_PRESS } from "@/lib/flags";
 
 export const metadata: Metadata = {
   title: "About",
@@ -32,7 +32,7 @@ export default function AboutPage() {
       <Leadership />
       {SHOW_STANDARDS && <Licenses />}
       <AirUpMention />
-      <Press />
+      {SHOW_PRESS && <Press />}
     </>
   );
 }
