@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { caseStudies } from "@/data/case-studies";
+import styles from "./CaseStudies.module.css";
 
 /** Client-supplied stories, with native horizontal scrolling and internal links. */
 export function CaseStudies() {
@@ -12,7 +13,7 @@ export function CaseStudies() {
         <h2 className="mb-4">Hospital stories</h2>
         <p className="max-w-2xl text-[var(--color-muted)] leading-relaxed">From bedside access to ongoing support: five stories about the systems and people behind oxygen care.</p>
       </div>
-      <div className="w-full overflow-x-auto" role="region" aria-label="Browse five hospital stories" tabIndex={0} style={{ scrollSnapType: "x mandatory", scrollPaddingInline: edge }}>
+      <div className={`${styles.scroller} w-full overflow-x-auto`} role="region" aria-label="Browse five hospital stories" tabIndex={0} style={{ scrollSnapType: "x mandatory", scrollPaddingInline: edge }}>
         <ul className="flex items-stretch gap-5 md:gap-6 list-none py-2" style={{ paddingInline: edge }}>
           {caseStudies.map(study => (
             <li key={study.slug} className="shrink-0" style={{ width: "min(85vw, 380px)", scrollSnapAlign: "start" }}>

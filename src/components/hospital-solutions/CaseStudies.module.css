@@ -1,0 +1,14 @@
+/* Preserve touch, trackpad, and keyboard browsing without a visible scrollbar. */
+.scroller {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scroller::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.scroller:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: -2px;
+}

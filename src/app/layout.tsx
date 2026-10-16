@@ -38,6 +38,7 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
+  other: { "healthport-release": process.env.COMMIT_REF ?? "local" },
   authors: [{ name: "HealthPort", url: SITE_URL }],
   keywords: [
     "medical oxygen",
