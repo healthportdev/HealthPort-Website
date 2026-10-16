@@ -5,7 +5,8 @@ import { OG_CONTENT_TYPE, OG_SIZE, renderOGCard } from "@/lib/og";
  * link to the home page unfurls in Slack, Twitter/X, LinkedIn,
  * WhatsApp, etc. Per-page files override this on their own routes.
  */
-export const runtime = "edge";
+export const runtime = "nodejs";
+export const alt = "HealthPort: reliable oxygen infrastructure for hospitals";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

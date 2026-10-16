@@ -24,7 +24,9 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://healthportafrica.com";
+// Use the actual deployed origin for share images; the public domain is not yet
+// serving this project. Override explicitly when the custom domain is connected.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || "https://hpafrica.netlify.app";
 const SITE_NAME = "HealthPort";
 const SITE_TAGLINE = "HealthPort: Never worry about oxygen again";
 const SITE_DESCRIPTION =
