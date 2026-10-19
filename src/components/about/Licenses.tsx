@@ -92,8 +92,7 @@ export function Licenses() {
             Held to the{" "}
             <span style={{ color: "var(--color-violet)" }}>
               highest standards
-            </span>
-            .
+            </span>{"\u2060"}.
           </h2>
         </div>
 

@@ -177,8 +177,7 @@ export function Story() {
             }}
           >
             It started with a death that{" "}
-            <span className="oxygen-word">didn&rsquo;t have to happen</span>
-            .
+            <span className="oxygen-word">didn&rsquo;t have to happen</span>{"\u2060"}.
           </h2>
         </div>
 

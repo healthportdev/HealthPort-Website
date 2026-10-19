@@ -57,8 +57,7 @@ export function AirUpMention() {
               Making respiratory support{" "}
               <span style={{ color: "var(--color-teal)" }}>
                 approachable
-              </span>
-              .
+              </span>{"\u2060"}.
             </h2>
             <p
               style={{

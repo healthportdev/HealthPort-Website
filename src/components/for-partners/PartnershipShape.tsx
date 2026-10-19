@@ -108,8 +108,7 @@ export function PartnershipShape() {
             Diverse investments in{" "}
             <span style={{ color: "var(--color-violet)" }}>
               a single point of scale
-            </span>
-            .
+            </span>{"\u2060"}.
           </h2>
         </div>
 

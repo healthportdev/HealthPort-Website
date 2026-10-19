@@ -42,8 +42,7 @@ export function PartnersHero() {
             access{" "}
             <span style={{ color: "var(--color-violet)" }}>
               at scale
-            </span>
-            .
+            </span>{"\u2060"}.
           </h1>
 
           {/* Sub — Figma copy: partnership scope, then the outcome

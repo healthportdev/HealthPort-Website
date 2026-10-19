@@ -41,8 +41,7 @@ export function MissionVision() {
             Oxygen supplier to healthcare{" "}
             <span style={{ color: "var(--color-violet)" }}>
               infrastructure
-            </span>
-            .
+            </span>{"\u2060"}.
           </h1>
 
           {/* Promise sub — the mission line, second sentence bolded

@@ -109,8 +109,7 @@ export function CoreValues() {
             What guides how{" "}
             <span style={{ color: "var(--color-teagreen)" }}>
               we build
-            </span>
-            .
+            </span>{"\u2060"}.
           </h2>
         </div>
 

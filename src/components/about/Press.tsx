@@ -146,8 +146,7 @@ export function Press() {
             }}
           >
             Coverage and recognition{" "}
-            <span style={{ color: "var(--color-violet)" }}>to date</span>
-            .
+            <span style={{ color: "var(--color-violet)" }}>to date</span>{"\u2060"}.
           </h2>
         </div>
       </div>
