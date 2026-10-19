@@ -113,6 +113,7 @@ export function Footer() {
 
           {/* Bottom bar */}
           <div
+            id="footer-attribution"
             className="flex flex-col md:flex-row md:items-center md:justify-between gap-3"
             style={{
               paddingTop: "20px",
@@ -122,46 +123,48 @@ export function Footer() {
             }}
           >
             <p>{new Date().getFullYear()} HealthPort. Lagos, Nigeria.</p>
-            <p className="flex items-center gap-2 flex-wrap">
-              <span>Community care by</span>
-              <Link
-                href="/about#airup"
-                aria-label="AirUp — HealthPort's community-facing brand"
-                title="AirUp — HealthPort's community-facing brand"
-                className="footer-airup inline-flex items-center gap-2"
-                style={{
-                  color: "var(--color-teagreen)",
-                  textDecoration: "none",
-                }}
-              >
-                <span
-                  aria-hidden
-                  className="airup-float inline-flex"
-                  style={{ lineHeight: 0 }}
-                >
-                  <Image
-                    src="/images/airup-mascot.png"
-                    alt=""
-                    width={36}
-                    height={40}
-                    style={{
-                      display: "block",
-                      width: "36px",
-                      height: "auto",
-                    }}
-                  />
-                </span>
-                <span
+            <div className="flex flex-col items-start gap-1 lg:flex-row lg:items-center lg:gap-3">
+              <p className="flex items-center gap-2 whitespace-nowrap">
+                <span>Community care by</span>
+                <Link
+                  href="/about#airup"
+                  aria-label="AirUp — HealthPort's community-facing brand"
+                  title="AirUp — HealthPort's community-facing brand"
+                  className="footer-airup inline-flex items-center gap-2"
                   style={{
-                    fontWeight: 600,
                     color: "var(--color-teagreen)",
+                    textDecoration: "none",
                   }}
                 >
-                  AirUp
-                </span>
-              </Link>
-              <span>, here for every breath.</span>
-            </p>
+                  <span
+                    aria-hidden
+                    className="airup-float inline-flex"
+                    style={{ lineHeight: 0 }}
+                  >
+                    <Image
+                      src="/images/airup-mascot.png"
+                      alt=""
+                      width={36}
+                      height={40}
+                      style={{
+                        display: "block",
+                        width: "36px",
+                        height: "auto",
+                      }}
+                    />
+                  </span>
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      color: "var(--color-teagreen)",
+                    }}
+                  >
+                    AirUp
+                  </span>
+                </Link>
+              </p>
+              <p>Here for every breath.</p>
+            </div>
           </div>
         </div>
       </div>

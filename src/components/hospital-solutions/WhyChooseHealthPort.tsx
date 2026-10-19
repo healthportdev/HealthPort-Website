@@ -93,8 +93,7 @@ export function WhyChooseHealthPort() {
             Why hospitals choose{" "}
             <span style={{ color: "var(--color-violet)" }}>
               HealthPort
-            </span>
-            .
+            </span>{"\u2060"}.
           </h2>
         </div>
 

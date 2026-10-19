@@ -118,8 +118,7 @@ export function HospitalGetsHealthPortTakes() {
             . We take on{" "}
             <span style={{ color: "var(--color-violet)" }}>
               the operational burden
-            </span>
-            .
+            </span>{"\u2060"}.
           </h2>
           <p
             className="max-w-xl"

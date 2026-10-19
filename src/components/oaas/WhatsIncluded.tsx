@@ -5,12 +5,14 @@
  * viewport with no gaps between panels. Each panel is a portrait 3:4
  * photo with a frameless caption (Tea-Green title + Parchment subtitle)
  * overlaid on a heavy diagonal scrim. Panels stack to 1 column on
- * mobile so the images stay large enough to read.
+ * mobile, use two columns with a wide closing panel on tablets, and
+ * return to the five-panel strip on large screens so captions stay readable.
  *
  * Merged from the original 7 items to 5 so each panel is wide enough
  * (~288px on a 1440px viewport) for a display-scale title.
  */
 import Image, { type StaticImageData } from "next/image";
+import styles from "./WhatsIncluded.module.css";
 
 import piping from "../../../public/photos/regulator-install.jpg";
 import monitoring from "../../../public/photos/pulse-oximeter-monitor.jpg";
@@ -113,7 +115,7 @@ export function WhatsIncluded() {
         }}
       >
         <div
-          className="grid grid-cols-1 md:grid-cols-5 gap-0"
+          className={`${styles.panels} grid gap-0`}
         >
           {panels.map((p) => (
             <PanelCard key={p.key} panel={p} />
@@ -127,9 +129,8 @@ export function WhatsIncluded() {
 function PanelCard({ panel }: { panel: Panel }) {
   return (
     <article
-      className="relative w-full overflow-hidden"
+      className={`${styles.panel} relative w-full overflow-hidden`}
       style={{
-        aspectRatio: "3 / 4",
         background: "var(--color-ink)",
       }}
     >
@@ -137,7 +138,7 @@ function PanelCard({ panel }: { panel: Panel }) {
         src={panel.image}
         alt={panel.title}
         fill
-        sizes="(min-width: 768px) 20vw, 100vw"
+        sizes={panel.key === "partnership" ? "(min-width: 1280px) 20vw, 100vw" : "(min-width: 1280px) 20vw, (min-width: 640px) 50vw, 100vw"}
         placeholder="blur"
         style={{ objectFit: "cover" }}
       />

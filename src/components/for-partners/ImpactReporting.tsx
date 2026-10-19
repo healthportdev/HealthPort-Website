@@ -116,8 +116,7 @@ export function ImpactReporting() {
               Transparency is{" "}
               <span style={{ color: "var(--color-teagreen)" }}>
                 built into the platform
-              </span>
-              .
+              </span>{"\u2060"}.
             </h2>
             <p
               style={{

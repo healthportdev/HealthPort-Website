@@ -148,8 +148,7 @@ export function PartnerTypes() {
             Different partners,{" "}
             <span style={{ color: "var(--color-violet)" }}>
               one shared infrastructure model
-            </span>
-            .
+            </span>{"\u2060"}.
           </h2>
         </div>
 
