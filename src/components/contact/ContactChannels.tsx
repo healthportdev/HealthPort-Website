@@ -2,10 +2,10 @@
  * Contact — right column channel cards. Matches the Figma stack:
  *   1. WhatsApp card (light Tea Green tint, Teal CTA)
  *   2. Email + Phone card (grouped)
- *   3. Location card + a satellite map thumbnail
+ *   3. Location card + a lazy-loaded OpenStreetMap area preview
  *
- * All values are placeholders per the current design brief — swap
- * for real numbers/addresses when ready.
+ * The map marker uses the HealthPort Africa location supplied by the client.
+ * Address links open its Google Maps listing; no mapping dependency is required.
  */
 
 export function ContactChannels() {
@@ -219,6 +219,8 @@ function ChannelRow({
 
 /* --------------------------- Location ---------------------------- */
 
+const officeMapsUrl = "https://maps.app.goo.gl/4GEtBKGkWZ2m4tpL9";
+
 function LocationCard() {
   return (
     <div
@@ -269,29 +271,35 @@ function LocationCard() {
               margin: 0,
             }}
           >
-            The Phillipi Centre, Plot A,
+            <a href={officeMapsUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">The Phillipi Centre, Plot A,
             <br />
-            Awolowo Way, Ikeja, Lagos.
+            Awolowo Way, Ikeja, Lagos.</a>
           </p>
         </div>
       </div>
 
-      {/* Satellite/map placeholder — soft green/brown grid pattern
-          styled to read as an aerial thumbnail. Swap for a real
-          static map export when the client picks a provider. */}
-      <div
-        aria-hidden
-        style={{
-          height: "clamp(160px, 18vw, 220px)",
-          backgroundColor: "#7a8b6a",
-          backgroundImage: `
-            linear-gradient(120deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.06) 75%, transparent 75%),
-            linear-gradient(60deg, rgba(0,0,0,0.08) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.08) 75%, transparent 75%),
-            radial-gradient(circle at 60% 40%, rgba(255,255,255,0.14) 0%, transparent 40%)
-          `,
-          backgroundSize: "40px 40px, 60px 60px, 100% 100%",
-        }}
-      />
+      <div className="relative" style={{ height: "clamp(200px, 22vw, 260px)", background: "var(--color-parchment)" }}>
+        <iframe
+          title="HealthPort Africa office location in Ikeja, Lagos"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=3.3505893%2C6.6103031%2C3.3585893%2C6.6163031&layer=mapnik&marker=6.6133031%2C3.3545893"
+          loading="lazy"
+          tabIndex={-1}
+          className="h-full w-full border-0"
+        />
+        <a
+          href={officeMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open HealthPort office address in Google Maps (opens in a new tab)"
+          className="absolute inset-x-0 top-0 bottom-16"
+        >
+          <span className="sr-only">Open in Google Maps</span>
+        </a>
+      </div>
+      <div className="px-5 py-4 text-sm">
+        <p className="mb-2 text-[var(--color-muted)]">Find HealthPort Africa on Google Maps.</p>
+        <a href={officeMapsUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-violet)] underline underline-offset-4">Open in Google Maps <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
   );
 }
